@@ -18,6 +18,8 @@ return [
         'passwords' => 'users',
     ],
 
+    'jwt_secret' => 'secret',
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards

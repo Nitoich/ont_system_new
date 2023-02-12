@@ -2,43 +2,68 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasPermissions;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
         'email',
         'password',
+        'first_name',
+        'last_name',
+        'surname',
+        'birth_day'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function setPasswordAttribute($value) {
+        $this->attributes['password'] = Hash::make($value);
+    }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function permissions() {
+        return $this->belongsToMany(Permission::class, 'users_permissions');
+    }
+
+    public function roles() {
+        return $this->belongsToMany(Role::class, 'users_roles');
+    }
+
+    public function hasRole(Role ...$roles): bool {
+        foreach ($roles as $role) {
+            if($this->roles->contains('slug', $role->slug)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function hasRoleBySlug(...$slugs): bool {
+        $queryBuilder = Role::query();
+        foreach ($slugs as $slug) {
+            $queryBuilder->orWhere($slug);
+        }
+        $roles = $queryBuilder->get();
+        return $this->hasRole($roles);
+    }
+
+    public function hasPermissionThroughRole(Permission $permission): bool {
+        $user_roles = $this->roles;
+        foreach ($user_roles as $role) {
+            if($role->permissions->contains('slug', $permission->slug)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function hasPermissionTo(Permission $permission): bool
+    {
+        return $this->hasPermission($permission) || $this->hasPermissionThroughRole($permission);
+    }
 }
