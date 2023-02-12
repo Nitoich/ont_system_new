@@ -2,9 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
@@ -43,5 +40,20 @@ class AuthTest extends TestCase
         $json = json_decode($response->getContent(), TRUE);
         $this->assertIsString($json['data']['access_token']);
         $this->assertIsString($json['data']['refresh_token']);
+        return $json;
+    }
+
+    public function test_get_authorized_user_data() {
+        $session_data = $this->test_login_in_user();
+        $response = $this->withToken($session_data['data']['access_token'])->get('/api/v1/me');
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'id',
+            'first_name',
+            'last_name',
+            'surname',
+            'email',
+            'birth_day'
+        ]);
     }
 }

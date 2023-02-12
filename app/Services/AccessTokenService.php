@@ -26,11 +26,11 @@ class AccessTokenService
         $token_parts = explode('.', $token);
         if(count($token_parts) !== 3) { return false; }
         $signature = hash_hmac('sha256', "$token_parts[0].$token_parts[1]", $this->secret);
-        return $signature === $token_parts[2];
+        return $signature == $token_parts[2];
     }
 
     public function getPayload(string $token) {
-        if($this->validate($token)) { return null; }
+        if(!$this->validate($token)) { return null; }
         $token_parts = explode('.', $token);
         return json_decode(base64_decode($token_parts[1]), TRUE);
     }
