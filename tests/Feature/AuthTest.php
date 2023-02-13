@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
@@ -55,6 +56,7 @@ class AuthTest extends TestCase
             'email',
             'birth_day'
         ]);
+
     }
 
     public function test_get_error_unauthorized() {

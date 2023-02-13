@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AccessTokenMiddleware;
+use App\Http\Middleware\UserPermissionMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,6 +65,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'jwt_auth' => AccessTokenMiddleware::class
+        'jwt_auth' => AccessTokenMiddleware::class,
+        'permission' => UserPermissionMiddleware::class
     ];
 }

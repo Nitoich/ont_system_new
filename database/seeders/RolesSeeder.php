@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class RolesSeeder extends Seeder
@@ -13,6 +15,20 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $role = new Role([
+            'name' => 'Администратор',
+            'slug' => 'admin'
+        ]);
+        $role->save();
+        $role->permissions()->saveMany(Permission::all());
+
+        $role = new Role([
+            'name' => 'Пользователь',
+            'slug' => 'user'
+        ]);
+        $role->save();
+        $role->permissions()->saveMany(collect([
+            Permission::query()->where('slug', '123')->first(),
+        ]));
     }
 }

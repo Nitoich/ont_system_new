@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
@@ -10,6 +12,7 @@ class UserService
     public function create(array $fields): User {
         $user = new User($fields);
         $user->save();
+        $user->roles()->save(Role::query()->where('slug', 'user')->first());
         return $user;
     }
 
