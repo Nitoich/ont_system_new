@@ -7,5 +7,9 @@ Route::post('/register', [\App\Http\Controllers\api\AuthController::class, 'regi
 Route::post('/login', [\App\Http\Controllers\api\AuthController::class, 'login']);
 
 
-Route::middleware(['jwt_auth', 'permission:123'])
+Route::middleware(['jwt_auth'])
     ->get('/me', [\App\Http\Controllers\api\UserController::class, 'getMe']);
+
+Route::middleware('jwt_auth')->group(function () {
+    Route::middleware('permission:read_self_sessions')->get('/session', [\App\Http\Controllers\api\SessionController::class, 'getSessions']);
+});

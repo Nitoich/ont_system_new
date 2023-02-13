@@ -27,8 +27,9 @@ class RolesSeeder extends Seeder
             'slug' => 'user'
         ]);
         $role->save();
-        $role->permissions()->saveMany(collect([
-            Permission::query()->where('slug', '123')->first(),
-        ]));
+        $role->permissions()->saveMany(Permission::query()
+            ->orWhere('slug', 'read_self_sessions')
+            ->get()
+        );
     }
 }

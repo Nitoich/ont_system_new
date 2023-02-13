@@ -56,11 +56,14 @@ class AuthTest extends TestCase
             'email',
             'birth_day'
         ]);
-
     }
 
     public function test_get_error_unauthorized() {
         $response = $this->get('/api/v1/me');
         $response->assertStatus(401);
     }
+
+//    public function test_get_my_sessions() {
+//        //
+//    }
 }

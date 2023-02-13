@@ -20,6 +20,7 @@ class AccessTokenMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        if(Auth::check()) { return next($request); }
         $accessTokenService = new AccessTokenService();
         $userService = new UserService();
         $token = $request->bearerToken();

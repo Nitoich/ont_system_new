@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\SessionService;
 use App\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,6 +25,18 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function createSession() {
+        $sessionService = new SessionService();
+        return $sessionService->create([
+            'user_id' => $this->id,
+            'device_name' => 'GENERATED'
+        ]);
+    }
+
+    public function sessions() {
+        return $this->hasMany(Session::class, 'user_id', 'id');
     }
 
     public function permissions() {
