@@ -44,7 +44,7 @@ abstract class Service
         return $data_unit;
     }
 
-    protected function exception_NotFoundData() {
+    protected function exception_NotFoundData(): array {
         return [
             'error' => [
                 'code' => 404,

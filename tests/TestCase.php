@@ -20,4 +20,9 @@ abstract class TestCase extends BaseTestCase
             'session' => $user_session
         ];
     }
+
+    public function getAccessNewUser(string $role_slug = 'user'): string {
+        $user = $this->createTestUser($role_slug);
+        return $user['session']->access_token;
+    }
 }

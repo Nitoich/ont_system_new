@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Filters\QueryFilter;
+use App\Filters\UsersFilter;
 use App\Services\SessionService;
 use App\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
