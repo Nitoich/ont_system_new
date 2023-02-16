@@ -27,7 +27,7 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function createSession() {
+    public function createSession(): Session {
         $sessionService = new SessionService();
         return $sessionService->create([
             'user_id' => $this->id,

@@ -12,4 +12,12 @@ Route::middleware(['jwt_auth'])
 
 Route::middleware('jwt_auth')->group(function () {
     Route::middleware('permission:read_self_sessions')->get('/session', [\App\Http\Controllers\api\SessionController::class, 'getSessions']);
+
+    Route::prefix('/group')->group(function() {
+        Route::post('/', [\App\Http\Controllers\api\GroupController::class, 'create']);
+        Route::get('/', [\App\Http\Controllers\api\GroupController::class, 'getAll']);
+        Route::get('/{group_id}', [\App\Http\Controllers\api\GroupController::class, 'getOne']);
+        Route::patch('/{group_id}', [\App\Http\Controllers\api\GroupController::class, 'update']);
+        Route::delete('/{group_id}', [\App\Http\Controllers\api\GroupController::class, 'delete']);
+    });
 });
