@@ -20,4 +20,6 @@ Route::middleware('jwt_auth')->group(function () {
         Route::patch('/{group_id}', [\App\Http\Controllers\api\GroupController::class, 'update']);
         Route::delete('/{group_id}', [\App\Http\Controllers\api\GroupController::class, 'delete']);
     });
+
+    Route::resource('speciality', \App\Http\Controllers\api\SpecialityController::class);
 });

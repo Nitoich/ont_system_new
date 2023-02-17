@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\Filters\GroupsFilter;
+use App\Filters\SlugAndNameFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Groups\CreateGroupRequest;
-use App\Http\Resources\Group\GroupCollection;
 use App\Http\Resources\Group\GroupResource;
 use App\Models\Group;
 use App\Services\GroupService;
@@ -28,7 +28,7 @@ class GroupController extends Controller
     }
 
     public function getAll(
-        GroupsFilter $filter
+        SlugAndNameFilter $filter
     ) {
         $groups = Group::query()->filter($filter)->paginate(10);
         return response()->json(GroupResource::collection($groups)->response()->getData(true), 200);

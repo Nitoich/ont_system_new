@@ -2,7 +2,7 @@
 
 namespace App\Filters;
 
-class GroupsFilter extends QueryFilter
+class SlugAndNameFilter extends QueryFilter
 {
     public function name($value) {
         $this->builder->where('name', 'like', "$value%");

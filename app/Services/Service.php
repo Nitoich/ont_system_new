@@ -33,9 +33,9 @@ abstract class Service
         return $data_unit;
     }
 
-    public function delete(int $id) {
+    public function delete(int $id): bool {
         $data_unit = $this->getById($id);
-        $data_unit->delete();
+        return $data_unit->delete();
     }
 
     public function update(int $id, array $fields): \Illuminate\Database\Eloquent\Model {
