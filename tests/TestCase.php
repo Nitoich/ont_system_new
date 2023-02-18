@@ -25,4 +25,8 @@ abstract class TestCase extends BaseTestCase
         $user = $this->createTestUser($role_slug);
         return $user['session']->access_token;
     }
+
+    public function withAccess(string $role_slug = 'user'): TestCase {
+        return $this->withToken($this->getAccessNewUser($role_slug));
+    }
 }

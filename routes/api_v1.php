@@ -22,4 +22,5 @@ Route::middleware('jwt_auth')->group(function () {
     });
 
     Route::resource('speciality', \App\Http\Controllers\api\SpecialityController::class);
+    Route::resource('discipline', \App\Http\Controllers\api\DisciplineController::class);
 });
