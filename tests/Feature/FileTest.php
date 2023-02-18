@@ -47,7 +47,6 @@ class FileTest extends TestCase
 //        Storage::fake('files');
         $file = File::factory()->create();
         $response = $this->withAccess()->get("/api/v1/file/{$file->id}?data=true");
-        dd($response->getContent());
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'data' => [
