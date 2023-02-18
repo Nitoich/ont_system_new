@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\File;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
@@ -33,5 +34,29 @@ class FileTest extends TestCase
         ]);
         $response_data = json_decode($response->getContent(), TRUE);
         Storage::disk('files')->assertExists($response_data['data']['name']);
+    }
+
+    public function test_get_file() {
+//        Storage::fake('files');
+        $file = File::factory()->create();
+        $response = $this->withAccess()->get("/api/v1/file/{$file->id}");
+        $response->assertStatus(200);
+    }
+
+    public function test_get_file_data() {
+//        Storage::fake('files');
+        $file = File::factory()->create();
+        $response = $this->withAccess()->get("/api/v1/file/{$file->id}?data=true");
+        dd($response->getContent());
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data' => [
+                'id',
+                'name',
+                'extension',
+                'size',
+                'path'
+            ]
+        ]);
     }
 }
