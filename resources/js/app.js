@@ -27,8 +27,10 @@ window.Vue = require('vue').default;
 const App = require("./pages/App").default;
 import router from "./router/router";
 import VueRouter from "vue-router";
+import VueX from "vuex";
 
 Vue.use(VueRouter);
+Vue.use(VueX);
 
 const app = new Vue({
     el: '#app',
