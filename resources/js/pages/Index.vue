@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: "application"
+    name: "Index"
 }
 </script>
 

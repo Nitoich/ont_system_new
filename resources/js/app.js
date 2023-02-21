@@ -24,10 +24,15 @@ window.Vue = require('vue').default;
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-const App = require("./components/App").default;
+const App = require("./pages/App").default;
+import router from "./router/router";
+import VueRouter from "vue-router";
+
+Vue.use(VueRouter);
 
 const app = new Vue({
     el: '#app',
+    router,
     components: {
         App
     }
