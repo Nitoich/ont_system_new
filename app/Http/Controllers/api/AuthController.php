@@ -25,7 +25,7 @@ class AuthController extends Controller
             'user_id' => $user->id,
             'device_name' => $request->device_name
         ]);
-        return response()->json(SessionResource::make($session), 201);
+        return response()->json(SessionResource::make($session), 201)->withCookie('refresh_token', $session->token, 43200, false, true);
     }
 
     public function login(
@@ -46,6 +46,7 @@ class AuthController extends Controller
             'user_id' => $user->id,
             'device_name' => $request->device_name
         ]);
-        return response()->json(SessionResource::make($session));
+        return response()->json(SessionResource::make($session), 200)->withCookie('refresh_token', $session->token, 43200, false, true);
+
     }
 }

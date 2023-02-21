@@ -17,7 +17,7 @@ class SessionResource extends JsonResource
         return [
             'data' => [
                 'access_token' => $this->access_token,
-                'refresh_token' => $this->token
+//                'refresh_token' => $this->token
             ]
         ];
     }

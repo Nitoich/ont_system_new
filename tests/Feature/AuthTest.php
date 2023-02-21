@@ -24,9 +24,10 @@ class AuthTest extends TestCase
             'birth_day' => '2002-03-16'
         ]);
         $response->assertStatus(201);
+        $response->assertCookie('refresh_token');
         $json = json_decode($response->getContent(), TRUE);
         $this->assertIsString($json['data']['access_token']);
-        $this->assertIsString($json['data']['refresh_token']);
+//        $this->assertIsString($json['data']['refresh_token']);
     }
 
     public function test_login_in_user() {
@@ -38,9 +39,10 @@ class AuthTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+        $response->assertCookie('refresh_token');
         $json = json_decode($response->getContent(), TRUE);
         $this->assertIsString($json['data']['access_token']);
-        $this->assertIsString($json['data']['refresh_token']);
+//        $this->assertIsString($json['data']['refresh_token']);
         return $json;
     }
 

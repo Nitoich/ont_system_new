@@ -10,6 +10,8 @@ Route::post('/login', [\App\Http\Controllers\api\AuthController::class, 'login']
 Route::middleware(['jwt_auth'])
     ->get('/me', [\App\Http\Controllers\api\UserController::class, 'getMe']);
 
+Route::get('/session/refresh', [\App\Http\Controllers\api\SessionController::class, 'refresh']);
+
 Route::middleware('jwt_auth')->group(function () {
     Route::middleware('permission:read_self_sessions')->get('/session', [\App\Http\Controllers\api\SessionController::class, 'getSessions']);
 
