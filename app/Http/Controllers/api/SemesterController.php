@@ -35,6 +35,17 @@ class SemesterController extends Controller
         ])->setStatusCode(200);
     }
 
+    public function update(
+        SemesterService $semesterService,
+        Request $request,
+        int $id
+    )
+    {
+        return response()->json([
+            'data' => $semesterService->update($id, $request->all())
+        ])->setStatusCode(200);
+    }
+
     public function destroy(
         SemesterService $semesterService,
         int $id
