@@ -4,7 +4,15 @@ module.exports = {
       'resources/js/**/*.vue'
   ],
   theme: {
-    extend: {},
+    extend: {
+        textColor: {
+            main: '#4796b4'
+        },
+        backgroundColor: {
+            'main-blue': '#4796b4',
+            'second-blue': '#77b8cd'
+        }
+    },
   },
   plugins: [],
 }

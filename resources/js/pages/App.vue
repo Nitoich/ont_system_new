@@ -7,6 +7,9 @@
 <script>
 export default {
     name: "application",
+    mounted() {
+        this.$store.dispatch('refresh');
+    }
 }
 </script>
 

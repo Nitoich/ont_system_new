@@ -1,9 +1,11 @@
+import Vue from "vue";
 import Vuex from 'vuex';
+import Session from "./stores/Session";
 
-const store = new Vuex.Store({
-    modules: [
+Vue.use(Vuex);
 
-    ]
+export default new Vuex.Store({
+    modules: {
+        Session
+    }
 });
-
-export default store;

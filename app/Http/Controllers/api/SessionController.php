@@ -32,9 +32,11 @@ class SessionController extends Controller
             ])->setStatusCode(400));
         }
 
-        $token = explode('|', Crypt::decryptString($token))[1];
+//        $token = explode('|', Crypt::decryptString($token))[1];
 
         $session = $sessionService->getByToken($token)->refreshToken();
-        return response()->json(SessionResource::make($session), 200)->withCookie('refresh_token', $session->token, 43200, false, true);
+        return response()
+            ->json(SessionResource::make($session), 200)
+            ->withCookie('refresh_token', $session->token, 43200);
     }
 }

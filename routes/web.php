@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', function () {
+Route::get('/manage/{any}', function () {
     return view('index');
 })->where('any', '((?!api).)*');
+
+Route::get('/manage', function () {
+    return redirect('/manage/home');
+});

@@ -1,5 +1,5 @@
 <template>
-    <button @click="$emit('click', $event)" class="px-xl-3 py-1 bg-success">
+    <button @click="$emit('click', $event)" class="px-2 py-1 bg-main-blue text-white hover:bg-second-blue">
         {{ this.label }}
     </button>
 </template>
