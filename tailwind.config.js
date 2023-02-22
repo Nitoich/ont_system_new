@@ -11,6 +11,9 @@ module.exports = {
         backgroundColor: {
             'main-blue': '#4796b4',
             'second-blue': '#77b8cd'
+        },
+        backgroundImage: {
+            home: "url('/images/home/background.webp')"
         }
     },
   },
