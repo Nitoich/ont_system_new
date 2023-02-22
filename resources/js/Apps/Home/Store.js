@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from 'vuex';
-import Session from "./stores/Session";
+import Session from "../../Stores/Session";
 
 Vue.use(Vuex);
 

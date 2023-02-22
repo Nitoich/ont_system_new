@@ -12,6 +12,6 @@
         <div id="app">
             <app></app>
         </div>
-        <script src="/js/teacher_manage.js"></script>
+        <script src="/js/home.js"></script>
     </body>
 </html>

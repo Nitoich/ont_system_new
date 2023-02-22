@@ -8,7 +8,9 @@
 export default {
     name: "application",
     mounted() {
-        this.$store.dispatch('refresh');
+        this.$store.dispatch('refresh').catch(err => {
+            console.log(err)
+        });
     }
 }
 </script>

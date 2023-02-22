@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('../../bootstrap');
 
 window.Vue = require('vue').default;
 
@@ -25,9 +25,8 @@ window.Vue = require('vue').default;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/Buttons/StandardButton.vue').default);
 
-import router from "./router/router";
+import router from "./router/Router";
 import store from "./Store";
 
 const App = require("./pages/App").default;
@@ -36,6 +35,6 @@ const app = new window.Vue({
     router,
     store: store,
     components: {
-        App
+        App: App
     }
 });

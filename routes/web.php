@@ -20,3 +20,7 @@ Route::get('/manage/{any}', function () {
 Route::get('/manage', function () {
     return redirect('/manage/home');
 });
+
+Route::get('/{any}', function () {
+    return view('home');
+})->where('any', '((?!api|manage).)*');

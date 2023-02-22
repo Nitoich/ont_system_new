@@ -11,7 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix
+    .js('resources/js/Apps/TeacherManage/app.js', 'public/js/teacher_manage.js')
+    .js('resources/js/Apps/Home/app.js', 'public/js/home.js')
     .vue()
-    // .sass('resources/sass/app.scss', 'public/css')
-    .postCss('resources/css/app.css', 'public/css', [require('tailwindcss')]);
+    .postCss('resources/css/app.css', 'public/css/app.css', [require('tailwindcss')])

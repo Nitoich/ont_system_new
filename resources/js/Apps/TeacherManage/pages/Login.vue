@@ -53,8 +53,6 @@ export default {
                 device_name: 'WEB'
             })
                 .then(response => {
-                    console.log(response);
-                    this.$store.commit('is_auth', true)
                     this.$router.push('/manage/home');
                 })
                 .catch(error => {
