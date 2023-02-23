@@ -13,4 +13,10 @@ class UserController extends Controller
     public function getMe() {
         return response()->json(UserResource::make(Auth::user()))->setStatusCode(200);
     }
+
+    public function getRoles(
+        int $id
+    ) {
+        return response()->json(Auth::user()->roles);
+    }
 }

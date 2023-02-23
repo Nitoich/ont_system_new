@@ -7,7 +7,7 @@
                     <span>Телефон: (3537)21-66-29</span>
                 </div>
             </header>
-            <main class="flex-1 flex justify-center items-center container mx-auto max-w-[1000px]">
+            <main class="flex-1 flex justify-center items-center container mx-auto max-w-[1000px] gap-[20px]">
                 <div class="content flex-1">
                     <router-view></router-view>
                 </div>
@@ -55,9 +55,7 @@ export default {
         ]
     }),
     mounted() {
-        this.$store.dispatch('refresh').catch(err => {
-            console.log(err)
-        });
+
     },
     components: {
         NavigationButton

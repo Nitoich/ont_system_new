@@ -8,9 +8,13 @@
 export default {
     name: "application",
     async mounted() {
-        this.$store.dispatch('refresh').catch((error) => {
-            this.$router.push('/manage/login')
-        }) ;
+        await this.$store.dispatch('refresh')
+            .then(async response => {
+                this.$store.dispatch('checkRoles');
+            })
+            .catch((error) => {
+                this.$router.replace('/manage/login')
+            }) ;
     }
 }
 </script>

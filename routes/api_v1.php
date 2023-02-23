@@ -15,6 +15,10 @@ Route::get('/session/refresh', [\App\Http\Controllers\api\SessionController::cla
 Route::middleware('jwt_auth')->group(function () {
     Route::middleware('permission:read_self_sessions')->get('/session', [\App\Http\Controllers\api\SessionController::class, 'getSessions']);
 
+    Route::prefix('/user')->group(function () {
+        Route::get('/{id}/role', [\App\Http\Controllers\api\UserController::class, 'getRoles']);
+    });
+
     Route::prefix('/group')->group(function() {
         Route::post('/', [\App\Http\Controllers\api\GroupController::class, 'create']);
         Route::get('/', [\App\Http\Controllers\api\GroupController::class, 'getAll']);

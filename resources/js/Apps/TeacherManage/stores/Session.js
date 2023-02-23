@@ -1,5 +1,4 @@
 import axios from "axios";
-import router from "../Apps/Home/router/Router";
 
 export default {
     state: {
@@ -41,6 +40,8 @@ export default {
                 .then(response => {
                     context.commit('access_token', response.data.data.access_token);
                     context.commit('is_auth', true);
+                    context.dispatch('getMyUserData');
+                    context.dispatch('checkRoles');
                     return response;
                 });
         },
@@ -51,6 +52,6 @@ export default {
                 context.commit('is_auth', false);
                 return response;
             });
-        }
+        },
     }
 };

@@ -4,6 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import axios from "axios";
+
 require('../../bootstrap');
 
 window.Vue = require('vue').default;
@@ -29,6 +31,19 @@ Vue.component('standard-button', require('./components/Buttons/StandardButton.vu
 
 import router from "./router/router";
 import store from "./Store";
+import http from "./http";
+
+http.interceptors.request.use((config) => {
+    config.headers.common['Authorization'] = `Bearer ${store.getters.access_token}`;
+    return config;
+});
+
+http.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+
+    return error;
+})
 
 const App = require("./pages/App").default;
 const app = new window.Vue({
