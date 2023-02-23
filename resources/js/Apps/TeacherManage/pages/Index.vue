@@ -5,7 +5,7 @@
         <router-link v-if="!this.is_auth" to="/manage/login">Авторизоваться</router-link>
         <standard-button v-if="this.is_auth" @click="() => {
             $store.dispatch('logout').then(response => {
-                $router.push('/manage/login');
+                $router.replace('/manage/login');
             })
         }" label="LOGOUT"></standard-button>
     </div>

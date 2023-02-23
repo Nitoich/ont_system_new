@@ -25298,7 +25298,7 @@ var render = function () {
             on: {
               click: function () {
                 _vm.$store.dispatch("logout").then(function (response) {
-                  _vm.$router.push("/manage/login")
+                  _vm.$router.replace("/manage/login")
                 })
               },
             },
