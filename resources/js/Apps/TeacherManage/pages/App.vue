@@ -7,9 +7,9 @@
 <script>
 export default {
     name: "application",
-    async mounted() {
-        await this.$store.dispatch('refresh')
-            .then(async response => {
+    created() {
+        this.$store.dispatch('refresh')
+            .then(response => {
                 this.$store.dispatch('checkRoles');
             })
             .catch((error) => {

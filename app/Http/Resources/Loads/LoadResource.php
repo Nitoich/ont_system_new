@@ -15,6 +15,7 @@ class LoadResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'group_id' => $this->group_id,
             'group_name' => $this->group->name,
             'discipline_id' => $this->discipline_id,

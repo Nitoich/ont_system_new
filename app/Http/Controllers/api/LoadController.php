@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Filters\LoadFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Loads\CreateLoadRequest;
 use App\Http\Resources\Loads\LoadResource;
@@ -20,11 +21,32 @@ class LoadController extends Controller
         ])->setStatusCode(201);
     }
 
-    public function index() {
-        $loads = Load::query()->paginate(10);
-        return response()->json(
-            LoadResource::collection($loads)->response()->getData(true)
-        );
+    public function show(
+        LoadService $loadService,
+        int $id
+    ) {
+        return response()->json([
+            'data' => LoadResource::make($loadService->getById($id))
+        ])->setStatusCode(200);
+    }
+
+    public function index(
+        Request $request,
+        LoadFilter $filter
+    ) {
+        $loads = null;
+        if(isset($request->pagination) && $request->pagination == "false") {
+            $loads = Load::query()->filter($filter)->get();
+            return response()->json([
+                'data' => LoadResource::collection($loads)
+            ]);
+        } else {
+            $loads = Load::query()->filter($filter)->paginate(10);
+            return response()->json(
+                LoadResource::collection($loads)->response()->getData(true)
+            );
+        }
+
     }
 
     public function update(

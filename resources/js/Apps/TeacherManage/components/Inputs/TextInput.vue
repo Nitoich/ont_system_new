@@ -3,6 +3,7 @@
         <div class="absolute-block relative min-h-[30px]">
             <span ref="placeholder" class="absolute top-[5%] transition-all duration-500 px-2 user-select-none">{{ this.placeholder }}</span>
             <input
+                :disabled="this.disabled"
                 :class="this.error !== '' ? 'border-red-500' : ''"
                 class="px-2 outline-0 bg-transparent border-b-2 absolute"
                 @blur="this.blur"
@@ -20,7 +21,7 @@ export default {
     name: "TextInput",
     props: {
         value: {
-            type: String,
+            type: [String, Number],
             default: ''
         },
         placeholder: {
@@ -34,6 +35,10 @@ export default {
         error: {
             type: String,
             default: ''
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
@@ -45,7 +50,7 @@ export default {
             this.$refs.placeholder.classList.remove('top-[5%]');
         },
         blur() {
-            if(this.value == '') {
+            if(this.value == '' || this.value == null) {
                 this.$refs.placeholder.classList.add('top-[5%]');
                 this.$refs.placeholder.classList.remove('text-xs');
                 this.$refs.placeholder.classList.remove('-top-[20%]');

@@ -41,9 +41,16 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use((response) => {
     return response;
 }, (error) => {
-
     return error;
 })
+
+// store.dispatch('refresh')
+//     .then(response => {
+//         store.dispatch('checkRoles');
+//     })
+//     .catch((error) => {
+//         router.replace('/manage/login')
+//     }) ;
 
 const App = require("./pages/App").default;
 const app = new window.Vue({
