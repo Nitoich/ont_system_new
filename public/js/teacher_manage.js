@@ -2779,6 +2779,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router/router */ "./resources/js/Apps/TeacherManage/router/router.js");
 /* harmony import */ var _Store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Store */ "./resources/js/Apps/TeacherManage/Store.js");
 /* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./http */ "./resources/js/Apps/TeacherManage/http.js");
+/* harmony import */ var _classes_Loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./classes/Loader */ "./resources/js/Apps/TeacherManage/classes/Loader.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -2811,6 +2812,7 @@ Vue.component('danger-button', (__webpack_require__(/*! ./components/Buttons/Dan
 
 
 
+
 _http__WEBPACK_IMPORTED_MODULE_3__["default"].interceptors.request.use(function (config) {
   config.headers.common['Authorization'] = "Bearer ".concat(_Store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.access_token);
   return config;
@@ -2828,7 +2830,7 @@ _http__WEBPACK_IMPORTED_MODULE_3__["default"].interceptors.response.use(function
 //     .catch((error) => {
 //         router.replace('/manage/login')
 //     }) ;
-
+window.Loader = new _classes_Loader__WEBPACK_IMPORTED_MODULE_4__["default"]();
 var App = (__webpack_require__(/*! ./pages/App */ "./resources/js/Apps/TeacherManage/pages/App.vue")["default"]);
 var app = new window.Vue({
   el: '#app',
@@ -2838,6 +2840,90 @@ var app = new window.Vue({
     App: App
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/Apps/TeacherManage/classes/Loader.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/Apps/TeacherManage/classes/Loader.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Loader)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var Loader = /*#__PURE__*/function () {
+  function Loader() {
+    _classCallCheck(this, Loader);
+    this.overlay = document.createElement('div');
+    this.overlay.style.cssText = "\n            position: fixed;\n            background: #ffffff;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100%;\n            z-index: 1000;\n        ";
+    this.overlay.style.display = 'none';
+    this.overlay.innerHTML = "\n            <div style=\"position: relative;width: 100vw; height: 100vh; display: flex; flex-direction: column; gap: 10px; justify-content: center; align-items: center;\" class=\"loader__content\">\n                <div style=\"position: relative;\">\n                    <svg class=\"loader__progress-ring\" width=\"120\" height=\"120\">\n                        <circle\n                            id=\"loader__progress-circle\"\n                            stroke=\"#4796b4\"\n                            stroke-width=\"4\"\n                            cx=\"60\"\n                            cy=\"60\"\n                            r=\"52\"\n                            fill=\"transparent\"\n                            style=\"transform-origin: center; transform: rotate(-90deg); transition: stroke-dashoffset 0.3s;\"\n                        />\n                    </svg>\n                    <span style=\"position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);\" id=\"loader__progress-label\">0</span>\n                </div>\n\n                <span id=\"loader__progress-title\" style=\"display: none; text-align: center;\"></span>\n            </div>\n        ";
+    document.body.append(this.overlay);
+    this.circle = document.getElementById('loader__progress-circle');
+    this.radius = this.circle.r.baseVal.value;
+    this.circumference = 2 * Math.PI * this.radius;
+    this.circle.style.strokeDasharray = "".concat(this.circumference, " ").concat(this.circumference);
+    this.circle.style.strokeDashoffset = this.circumference;
+  }
+  _createClass(Loader, [{
+    key: "setProgress",
+    value: function setProgress(percent) {
+      var offset = this.circumference - percent / 100 * this.circumference;
+      this.circle.style.strokeDashoffset = offset;
+    }
+  }, {
+    key: "show",
+    value: function show() {
+      var title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      document.body.style.overflow = 'hidden';
+      if (title) {
+        document.getElementById('loader__progress-title').style.display = 'block';
+        document.getElementById('loader__progress-title').innerText = title;
+      }
+      this.overlay.style.display = 'block';
+      this.setProgress(0);
+      this.setLabelPercent(0);
+    }
+  }, {
+    key: "updateProgress",
+    value: function updateProgress(progressEvent) {
+      var percent = Math.round(progressEvent.loaded / progressEvent.total * 100);
+      console.log(percent);
+      this.setLabelPercent(percent);
+      this.setProgress(percent);
+      if (percent == 100) {
+        this.close();
+      }
+    }
+  }, {
+    key: "setLabelPercent",
+    value: function setLabelPercent(percent) {
+      document.getElementById('loader__progress-label').innerText = percent;
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      var _this = this;
+      setInterval(function () {
+        document.body.style.overflow = 'unset';
+        _this.overlay.style.display = 'none';
+        document.getElementById('loader__progress-title').style.display = 'none';
+      }, 1000);
+    }
+  }]);
+  return Loader;
+}();
+
+;
 
 /***/ }),
 
@@ -3005,13 +3091,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   actions: {
     getLoads: function getLoads(context, filter) {
       context.commit('loads', []);
+      window.Loader.show('Загрузка нагрузки');
       _http__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/load', {
         params: Object.assign(filter, {
           pagination: false
         }),
-        onDownloadProgress: function onDownloadProgress(ProgressEvent) {
-          console.log(ProgressEvent);
-          console.log(ProgressEvent.loaded / ProgressEvent.total * 100);
+        onDownloadProgress: function onDownloadProgress(progressEvent) {
+          window.Loader.updateProgress(progressEvent);
         }
       }).then(function (response) {
         context.commit('loads', response.data.data);

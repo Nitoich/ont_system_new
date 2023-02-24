@@ -33,6 +33,7 @@ Vue.component('danger-button', require('./components/Buttons/DangerButton.vue').
 import router from "./router/router";
 import store from "./Store";
 import http from "./http";
+import Loader from "./classes/Loader";
 
 http.interceptors.request.use((config) => {
     config.headers.common['Authorization'] = `Bearer ${store.getters.access_token}`;
@@ -52,7 +53,7 @@ http.interceptors.response.use((response) => {
 //     .catch((error) => {
 //         router.replace('/manage/login')
 //     }) ;
-
+window.Loader = new Loader();
 const App = require("./pages/App").default;
 const app = new window.Vue({
     el: '#app',

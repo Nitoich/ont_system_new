@@ -24,13 +24,13 @@ export default {
     actions: {
         getLoads(context, filter) {
             context.commit('loads', []);
+            window.Loader.show('Загрузка нагрузки');
             http.get('/api/v1/load', {
                 params: Object.assign(filter, {
                     pagination: false
                 }),
-                onDownloadProgress: (ProgressEvent) => {
-                    console.log(ProgressEvent)
-                    console.log((ProgressEvent.loaded / ProgressEvent.total) * 100);
+                onDownloadProgress: function (progressEvent) {
+                    window.Loader.updateProgress(progressEvent);
                 }
             })
                 .then(response => {
