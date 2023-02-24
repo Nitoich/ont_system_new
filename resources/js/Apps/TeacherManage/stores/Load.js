@@ -23,10 +23,15 @@ export default {
     },
     actions: {
         getLoads(context, filter) {
+            context.commit('loads', []);
             http.get('/api/v1/load', {
                 params: Object.assign(filter, {
                     pagination: false
-                })
+                }),
+                onDownloadProgress: (ProgressEvent) => {
+                    console.log(ProgressEvent)
+                    console.log((ProgressEvent.loaded / ProgressEvent.total) * 100);
+                }
             })
                 .then(response => {
                     context.commit('loads', response.data.data);
@@ -37,6 +42,9 @@ export default {
                 .then(response => {
                     return response.data.data;
                 })
+        },
+        updateLoad(context, fields) {
+            return http.patch(`/api/v1/load/${fields.id}`, fields);
         }
     }
 }

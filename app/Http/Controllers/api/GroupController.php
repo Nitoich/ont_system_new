@@ -28,9 +28,15 @@ class GroupController extends Controller
     }
 
     public function getAll(
-        SlugAndNameFilter $filter
+        SlugAndNameFilter $filter,
+        Request $request
     ) {
-        $groups = Group::query()->filter($filter)->paginate(10);
+        $groups = Group::query()->filter($filter);
+        if(isset($request->pagination) && $request->pagination == 'false') {
+            $groups = $groups->get();
+        } else {
+            $groups = $groups->paginate(10);
+        }
         return response()->json(GroupResource::collection($groups)->response()->getData(true), 200);
     }
 

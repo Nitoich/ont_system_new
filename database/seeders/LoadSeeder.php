@@ -14,6 +14,6 @@ class LoadSeeder extends Seeder
      */
     public function run()
     {
-        Load::factory(15)->create();
+        Load::factory(1000)->create();
     }
 }

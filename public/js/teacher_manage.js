@@ -2054,6 +2054,36 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "DangerButton",
+  props: {
+    label: {
+      type: String,
+      "default": 'button'
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/components/Buttons/StandardButton.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/components/Buttons/StandardButton.vue?vue&type=script&lang=js& ***!
@@ -2400,6 +2430,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   methods: {
     itemClick: function itemClick(event, item) {
       console.log(item);
+      this.$router.push("/manage/load/".concat(item.id));
     },
     clearFilter: function clearFilter() {
       for (var _i = 0, _Object$entries = Object.entries(this.filter); _i < _Object$entries.length; _i++) {
@@ -2409,6 +2440,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         this.filter[key] = null;
       }
       this.$store.dispatch('getLoads', this.filter);
+    }
+  },
+  mounted: function mounted() {
+    if (this.is_auth) {
+      this.$store.dispatch('getLoads', {});
     }
   },
   watch: {
@@ -2461,6 +2497,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2487,36 +2528,96 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           name: 'Семестр:'
         },
         type: {
-          name: 'Тип:'
+          name: 'Тип:',
+          type: 'select',
+          items: {
+            load: 'Нагрузка',
+            vacancy: 'Вакансия'
+          }
         }
       }
     };
   },
+  mounted: function mounted() {
+    this.loadData();
+  },
   methods: {
     save: function save() {
-      alert('saving...');
-    }
-  },
-  watch: {
-    is_auth: function is_auth() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this.$store.dispatch('getLoad', _this.$route.params.id);
+              return _this.$store.dispatch('updateLoad', _this.load).then(function (response) {
+                console.log(response);
+              })["catch"](function (err) {
+                console.log(err.response);
+              });
             case 2:
-              _this.load = _context.sent;
-              _context.next = 5;
-              return _this.$store.dispatch('getGroups');
-            case 5:
-              _this.fields.group_id.items = _this.groups_for_select;
-            case 6:
             case "end":
               return _context.stop();
           }
         }, _callee);
+      }))();
+    },
+    saveAndExit: function saveAndExit() {
+      var _this2 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _this2.save();
+            case 2:
+              _this2.$router.back();
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
+    loadData: function loadData() {
+      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _this3.$store.dispatch('getLoad', _this3.$route.params.id);
+            case 2:
+              _this3.load = _context3.sent;
+              _context3.next = 5;
+              return _this3.$store.dispatch('getGroups', {
+                params: {
+                  pagination: false
+                }
+              });
+            case 5:
+              _this3.fields.group_id.items = _this3.groups_for_select;
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }))();
+    }
+  },
+  watch: {
+    is_auth: function is_auth() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return _this4.loadData();
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
       }))();
     }
   },
@@ -2706,6 +2807,7 @@ window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js
  */
 
 Vue.component('standard-button', (__webpack_require__(/*! ./components/Buttons/StandardButton.vue */ "./resources/js/Apps/TeacherManage/components/Buttons/StandardButton.vue")["default"]));
+Vue.component('danger-button', (__webpack_require__(/*! ./components/Buttons/DangerButton.vue */ "./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue")["default"]));
 
 
 
@@ -2851,8 +2953,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   actions: {
-    getGroups: function getGroups(context) {
-      return _http__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/group').then(function (response) {
+    getGroups: function getGroups(context, config) {
+      return _http__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/group', config).then(function (response) {
         context.commit('groups', response.data.data);
         return response;
       });
@@ -2902,10 +3004,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   actions: {
     getLoads: function getLoads(context, filter) {
+      context.commit('loads', []);
       _http__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/load', {
         params: Object.assign(filter, {
           pagination: false
-        })
+        }),
+        onDownloadProgress: function onDownloadProgress(ProgressEvent) {
+          console.log(ProgressEvent);
+          console.log(ProgressEvent.loaded / ProgressEvent.total * 100);
+        }
       }).then(function (response) {
         context.commit('loads', response.data.data);
       });
@@ -2927,6 +3034,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    updateLoad: function updateLoad(context, fields) {
+      return _http__WEBPACK_IMPORTED_MODULE_0__["default"].patch("/api/v1/load/".concat(fields.id), fields);
     }
   }
 });
@@ -25115,6 +25225,45 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DangerButton_vue_vue_type_template_id_b5abedd6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DangerButton.vue?vue&type=template&id=b5abedd6&scoped=true& */ "./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=template&id=b5abedd6&scoped=true&");
+/* harmony import */ var _DangerButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DangerButton.vue?vue&type=script&lang=js& */ "./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DangerButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DangerButton_vue_vue_type_template_id_b5abedd6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _DangerButton_vue_vue_type_template_id_b5abedd6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "b5abedd6",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Apps/TeacherManage/components/Buttons/StandardButton.vue":
 /*!*******************************************************************************!*\
   !*** ./resources/js/Apps/TeacherManage/components/Buttons/StandardButton.vue ***!
@@ -25427,6 +25576,22 @@ component.options.__file = "resources/js/Apps/TeacherManage/pages/Login.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DangerButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DangerButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DangerButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/Apps/TeacherManage/components/Buttons/StandardButton.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************!*\
   !*** ./resources/js/Apps/TeacherManage/components/Buttons/StandardButton.vue?vue&type=script&lang=js& ***!
@@ -25552,6 +25717,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Login.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/pages/Login.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=template&id=b5abedd6&scoped=true&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=template&id=b5abedd6&scoped=true& ***!
+  \************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DangerButton_vue_vue_type_template_id_b5abedd6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DangerButton_vue_vue_type_template_id_b5abedd6_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DangerButton_vue_vue_type_template_id_b5abedd6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DangerButton.vue?vue&type=template&id=b5abedd6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=template&id=b5abedd6&scoped=true&");
+
 
 /***/ }),
 
@@ -25687,6 +25869,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_ae56f992_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_ae56f992_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Login.vue?vue&type=template&id=ae56f992&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/pages/Login.vue?vue&type=template&id=ae56f992&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=template&id=b5abedd6&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Apps/TeacherManage/components/Buttons/DangerButton.vue?vue&type=template&id=b5abedd6&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    {
+      staticClass: "px-2 py-1 bg-red-600 text-white hover:bg-red-400",
+      on: {
+        click: function ($event) {
+          return _vm.$emit("click", $event)
+        },
+      },
+    },
+    [_vm._v("\n    " + _vm._s(this.label) + "\n")]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
 
 
 /***/ }),
@@ -26073,7 +26291,10 @@ var render = function () {
   return _vm.load
     ? _c(
         "div",
-        { staticClass: "container mx-auto flex flex-col gap-3 items-center" },
+        {
+          staticClass:
+            "container mx-auto flex flex-col gap-3 items-center justify-center h-screen",
+        },
         [
           _c(
             "div",
@@ -26093,7 +26314,10 @@ var render = function () {
                   !field.type
                     ? _c("text-input", {
                         attrs: {
-                          disabled: field.disabled ? false : field.disabled,
+                          disabled:
+                            typeof field.disabled === "undefined"
+                              ? false
+                              : field.disabled,
                         },
                         model: {
                           value: _vm.load[key],
@@ -26124,12 +26348,32 @@ var render = function () {
             0
           ),
           _vm._v(" "),
-          _c("standard-button", {
-            attrs: { label: "Сохранить" },
-            on: { click: _vm.save },
-          }),
-        ],
-        1
+          _c(
+            "div",
+            { staticClass: "flex flex-row gap-1" },
+            [
+              _c("standard-button", {
+                attrs: { label: "Сохранить" },
+                on: { click: _vm.saveAndExit },
+              }),
+              _vm._v(" "),
+              _c("standard-button", {
+                attrs: { label: "Применить" },
+                on: { click: _vm.save },
+              }),
+              _vm._v(" "),
+              _c("danger-button", {
+                attrs: { label: "Отменить" },
+                on: {
+                  click: function ($event) {
+                    return _vm.$router.back()
+                  },
+                },
+              }),
+            ],
+            1
+          ),
+        ]
       )
     : _vm._e()
 }

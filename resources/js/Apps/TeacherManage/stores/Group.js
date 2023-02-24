@@ -19,8 +19,8 @@ export default {
         }
     },
     actions: {
-        getGroups(context) {
-            return http.get('/api/v1/group')
+        getGroups(context, config) {
+            return http.get('/api/v1/group', config)
                 .then(response => {
                     context.commit('groups', response.data.data);
                     return response;

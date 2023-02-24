@@ -38,12 +38,18 @@ export default {
     methods: {
         itemClick(event, item) {
             console.log(item);
+            this.$router.push(`/manage/load/${item.id}`);
         },
         clearFilter() {
             for(const [key, value] of Object.entries(this.filter)) {
                 this.filter[key] = null;
             }
             this.$store.dispatch('getLoads', this.filter);
+        }
+    },
+    mounted() {
+        if(this.is_auth) {
+            this.$store.dispatch('getLoads', {});
         }
     },
     watch: {
