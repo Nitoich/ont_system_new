@@ -1,5 +1,9 @@
 <template>
     <div v-if="load" class="container mx-auto flex flex-col gap-3 items-center justify-center h-screen">
+        <div @click="$router.back()" class="cross absolute right-1 top-2 w-[50px] h-[50px] cursor-pointer">
+            <span class="rotate-45 block absolute w-[10px] h-[30px] bg-slate-500"></span>
+            <span class="-rotate-45 block absolute w-[10px] h-[30px] bg-slate-500"></span>
+        </div>
         <div class="fields">
             <div :key="key" v-for="(field, key) in this.fields" class="field grid grid-cols-2 items-center">
                 <div class="name text-right">{{ field.name }}</div>
@@ -52,7 +56,9 @@ export default {
         }
     }),
     mounted() {
-        this.loadData();
+        if(this.is_auth) {
+            this.loadData();
+        }
     },
     methods: {
         async save() {

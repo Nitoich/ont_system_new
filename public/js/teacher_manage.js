@@ -2502,6 +2502,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2539,7 +2543,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    this.loadData();
+    if (this.is_auth) {
+      this.loadData();
+    }
   },
   methods: {
     save: function save() {
@@ -26115,18 +26121,32 @@ var render = function () {
     "div",
     {
       ref: "main",
-      staticClass: "w-[200px] h-[46px] overflow-hidden",
+      staticClass: "w-[200px] h-[46px] overflow-visible relative",
       attrs: { tabindex: "0" },
     },
     [
       _c(
         "div",
-        { staticClass: "header mt-[12px] px-2", on: { click: _vm.focus } },
+        {
+          staticClass: "header mt-[12px] px-2 border-b-2",
+          on: { click: _vm.focus },
+        },
         [
           this.value
             ? _c("span", [_vm._v(_vm._s(this.items[this.value]))])
             : _vm._e(),
-          _vm._v(" "),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          ref: "itemsList",
+          staticClass:
+            "items max-h-[150px] w-full overflow-x-auto absolute top-100 left-0 bg-white z-10",
+          staticStyle: { display: "none" },
+        },
+        [
           _c("text-input", {
             ref: "searchElement",
             attrs: { placeholder: "Поиск" },
@@ -26138,29 +26158,24 @@ var render = function () {
               expression: "search",
             },
           }),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { ref: "itemsList", staticClass: "items" },
-        _vm._l(this.filteredItems, function (item, key) {
-          return _c(
-            "div",
-            {
-              key: key,
-              staticClass: "item hover:bg-second-blue cursor-pointer px-2",
-              on: {
-                click: function ($event) {
-                  return _vm.selectItem($event, key)
+          _vm._v(" "),
+          _vm._l(this.filteredItems, function (item, key) {
+            return _c(
+              "div",
+              {
+                key: key,
+                staticClass: "item hover:bg-second-blue cursor-pointer px-2",
+                on: {
+                  click: function ($event) {
+                    return _vm.selectItem($event, key)
+                  },
                 },
               },
-            },
-            [_c("span", [_vm._v(_vm._s(item))])]
-          )
-        }),
-        0
+              [_c("span", [_vm._v(_vm._s(item))])]
+            )
+          }),
+        ],
+        2
       ),
     ]
   )
@@ -26382,6 +26397,30 @@ var render = function () {
             "container mx-auto flex flex-col gap-3 items-center justify-center h-screen",
         },
         [
+          _c(
+            "div",
+            {
+              staticClass:
+                "cross absolute right-1 top-2 w-[50px] h-[50px] cursor-pointer",
+              on: {
+                click: function ($event) {
+                  return _vm.$router.back()
+                },
+              },
+            },
+            [
+              _c("span", {
+                staticClass:
+                  "rotate-45 block absolute w-[10px] h-[30px] bg-slate-500",
+              }),
+              _vm._v(" "),
+              _c("span", {
+                staticClass:
+                  "-rotate-45 block absolute w-[10px] h-[30px] bg-slate-500",
+              }),
+            ]
+          ),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "fields" },

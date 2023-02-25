@@ -1,10 +1,10 @@
 <template>
-    <div ref="main" tabindex="0" class="w-[200px] h-[46px] overflow-hidden">
-        <div @click="focus" class="header mt-[12px] px-2">
+    <div ref="main" tabindex="0" class="w-[200px] h-[46px] overflow-visible relative">
+        <div @click="focus" class="header mt-[12px] px-2 border-b-2">
             <span v-if="this.value">{{ this.items[this.value] }}</span>
-            <text-input ref="searchElement" placeholder="Поиск" v-model="search"></text-input>
         </div>
-        <div ref="itemsList" class="items">
+        <div style="display: none;" ref="itemsList" class="items max-h-[150px] w-full overflow-x-auto absolute top-100 left-0 bg-white z-10">
+            <text-input ref="searchElement" placeholder="Поиск" v-model="search"></text-input>
             <div @click="selectItem($event, key)" :key="key" v-for="(item, key) in this.filteredItems" class="item hover:bg-second-blue cursor-pointer px-2">
                 <span>{{ item }}</span>
             </div>
