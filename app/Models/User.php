@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Filters\QueryFilter;
 use App\Filters\UsersFilter;
 use App\Services\SessionService;
+use App\Traits\CanBeFiltered;
 use App\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasPermissions;
+    use HasApiTokens, HasFactory, Notifiable, HasPermissions, CanBeFiltered;
 
     protected $fillable = [
         'email',

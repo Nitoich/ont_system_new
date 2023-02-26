@@ -2206,6 +2206,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2238,11 +2243,17 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         },
         surname: {
           name: 'Отчество'
-        },
-        birth_day: {
-          name: 'Дата рождения'
         }
+        // birth_day: {
+        //     name: 'Дата рождения',
+        //     type: 'date'
+        // },
+        // created_at: {
+        //     name: 'Дата регистрации',
+        //     type: ''
+        // }
       },
+
       filterValues: undefined
     };
   },
@@ -2258,6 +2269,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   watch: {
     is_auth: function is_auth() {
       this.$store.dispatch('getUsers');
+    },
+    filterValues: function filterValues() {
+      this.$store.dispatch('getUsers', this.filterValues);
     }
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['is_auth', 'users']))
@@ -2337,6 +2351,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
 
 
 
@@ -2357,18 +2372,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     };
   },
   methods: {
+    pageEventClick: function pageEventClick(event) {
+      var withinBoundaries = event.composedPath().includes(this.$el);
+      if (!withinBoundaries) {
+        this.accept();
+        this.blur();
+      }
+    },
     focus: function focus() {
-      var _this = this;
-      document.addEventListener('click', function (event) {
-        var withinBoundaries = event.composedPath().includes(_this.$el);
-        if (!withinBoundaries) {
-          _this.accept();
-          _this.blur();
-        }
-      });
+      document.addEventListener('click', this.pageEventClick);
       this.$refs.fieldsContainer.style.display = 'block';
     },
     blur: function blur() {
+      document.removeEventListener('click', this.pageEventClick);
       this.$refs.fieldsContainer.style.display = 'none';
     },
     accept: function accept() {
@@ -3012,7 +3028,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     getUsers: function getUsers(context) {
-      return _http__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/user').then(function (response) {
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return _http__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/v1/user', {
+        params: params
+      }).then(function (response) {
         context.commit('users', response.data.data);
       });
     }
@@ -21259,16 +21278,35 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("v-filter", {
-        attrs: { fields: _vm.filter },
-        model: {
-          value: _vm.filterValues,
-          callback: function ($$v) {
-            _vm.filterValues = $$v
-          },
-          expression: "filterValues",
-        },
-      }),
+      _c(
+        "div",
+        { staticClass: "header flex items-center" },
+        [
+          _c("v-filter", {
+            staticClass: "flex-1",
+            attrs: { fields: _vm.filter },
+            model: {
+              value: _vm.filterValues,
+              callback: function ($$v) {
+                _vm.filterValues = $$v
+              },
+              expression: "filterValues",
+            },
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "btns" },
+            [
+              _c("standard-button", {
+                attrs: { label: "Создать пользователя" },
+              }),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("smart-table", {
         attrs: {
@@ -21351,12 +21389,15 @@ var render = function () {
     _c(
       "div",
       {
-        staticClass: "accepted-filters flex gap-2 min-h-[40px] border-2",
+        staticClass:
+          "accepted-filters flex gap-2 min-h-[40px] max-w-full border-2 overflow-auto",
         on: { click: _vm.focus },
       },
       _vm._l(this.acceptedFields, function (field, key) {
         return _c("div", { staticClass: "accepted-field p-1.5 bg-main-blue" }, [
-          _c("span", [_vm._v(_vm._s(field.name) + ": " + _vm._s(field.value))]),
+          _c("span", { staticClass: "whitespace-nowrap" }, [
+            _vm._v(_vm._s(field.name) + ": " + _vm._s(field.value)),
+          ]),
         ])
       }),
       0
@@ -21404,6 +21445,30 @@ var render = function () {
                           _vm.$set(_vm.fieldsValues, key, $$v)
                         },
                         expression: "fieldsValues[key]",
+                      },
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                typeof field.type !== "undefined" &&
+                field.type.toLowerCase() == "date"
+                  ? _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fieldsValues[key],
+                          expression: "fieldsValues[key]",
+                        },
+                      ],
+                      attrs: { type: "date" },
+                      domProps: { value: _vm.fieldsValues[key] },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.fieldsValues, key, $event.target.value)
+                        },
                       },
                     })
                   : _vm._e(),

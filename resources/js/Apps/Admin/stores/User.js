@@ -67,8 +67,10 @@ export default {
                 window.location.href = '/';
             }
         },
-        getUsers(context) {
-            return http.get('/api/v1/user')
+        getUsers(context, params = {}) {
+            return http.get('/api/v1/user', {
+                params
+            })
                 .then(response => {
                     context.commit('users', response.data.data)
                 })

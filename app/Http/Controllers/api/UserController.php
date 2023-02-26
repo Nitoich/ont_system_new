@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Filters\UsersFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
@@ -20,8 +21,10 @@ class UserController extends Controller
         return response()->json(Auth::user()->roles);
     }
 
-    public function index() {
-        $users = User::query()->paginate(10);
+    public function index(
+        UsersFilter $filter
+    ) {
+        $users = User::query()->filter($filter)->paginate(10);
         return response()->json(UserResource::collection($users)->response()->getData(true))->setStatusCode(200);
     }
 }

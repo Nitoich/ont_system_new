@@ -1,6 +1,11 @@
 <template>
     <div>
-        <v-filter :fields="filter" v-model="filterValues"></v-filter>
+        <div class="header flex items-center">
+            <v-filter class="flex-1" :fields="filter" v-model="filterValues"></v-filter>
+            <div class="btns">
+                <standard-button label="Создать пользователя"></standard-button>
+            </div>
+        </div>
         <smart-table
             :headers="{
                 id: 'ID',
@@ -49,9 +54,14 @@ export default {
             surname: {
                 name: 'Отчество'
             },
-            birth_day: {
-                name: 'Дата рождения'
-            }
+            // birth_day: {
+            //     name: 'Дата рождения',
+            //     type: 'date'
+            // },
+            // created_at: {
+            //     name: 'Дата регистрации',
+            //     type: ''
+            // }
         },
         filterValues: undefined
     }),
@@ -67,6 +77,9 @@ export default {
     watch: {
         is_auth() {
             this.$store.dispatch('getUsers');
+        },
+        filterValues() {
+            this.$store.dispatch('getUsers', this.filterValues);
         }
     },
     computed: {

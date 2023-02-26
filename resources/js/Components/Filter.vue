@@ -1,8 +1,8 @@
 <template>
     <div class="filter relative py-1">
-        <div @click="focus" class="accepted-filters flex gap-2 min-h-[40px] border-2">
+        <div @click="focus" class="accepted-filters flex gap-2 min-h-[40px] max-w-full border-2 overflow-auto">
             <div v-for="(field, key) in this.acceptedFields" class="accepted-field p-1.5 bg-main-blue">
-                <span>{{ field.name }}: {{ field.value }}</span>
+                <span class="whitespace-nowrap">{{ field.name }}: {{ field.value }}</span>
             </div>
         </div>
         <div style="display: none" ref="fieldsContainer" class="fields absolute top-100 w-full h-max py-1 px-2 bg-white border-2">
@@ -11,6 +11,7 @@
                     <span>{{ field.name }}:</span>
                     <text-input v-model="fieldsValues[key]" v-if="typeof field.type == 'undefined' || field.type.toLowerCase() === 'text'"></text-input>
                     <smart-select v-model="fieldsValues[key]" v-if="typeof field.type !== 'undefined' && field.type.toLowerCase() == 'select'" :items="field.items"></smart-select>
+                    <input v-model="fieldsValues[key]" v-if="typeof field.type !== 'undefined' && field.type.toLowerCase() == 'date'" type="date">
                 </div>
             </div>
             <standard-button @click="accept" label="Применить"></standard-button>
@@ -36,17 +37,19 @@ export default {
         fieldsValues: {}
     }),
     methods: {
+        pageEventClick(event) {
+            const withinBoundaries = event.composedPath().includes(this.$el);
+            if(!withinBoundaries) {
+                this.accept();
+                this.blur();
+            }
+        },
         focus() {
-            document.addEventListener('click', (event) => {
-                const withinBoundaries = event.composedPath().includes(this.$el);
-                if(!withinBoundaries) {
-                    this.accept();
-                    this.blur();
-                }
-            });
+            document.addEventListener('click', this.pageEventClick);
             this.$refs.fieldsContainer.style.display = 'block';
         },
         blur() {
+            document.removeEventListener('click', this.pageEventClick);
             this.$refs.fieldsContainer.style.display = 'none';
         },
         accept() {
