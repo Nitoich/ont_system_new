@@ -19,4 +19,9 @@ class UserController extends Controller
     ) {
         return response()->json(Auth::user()->roles);
     }
+
+    public function index() {
+        $users = User::query()->paginate(10);
+        return response()->json(UserResource::collection($users)->response()->getData(true))->setStatusCode(200);
+    }
 }

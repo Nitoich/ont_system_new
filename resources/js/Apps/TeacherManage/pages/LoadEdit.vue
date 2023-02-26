@@ -22,8 +22,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import TextInput from "../components/Inputs/TextInput";
-import SmartSelect from "../components/SmartSelect";
+import TextInput from "../../../Components/Inputs/TextInput";
+import SmartSelect from "../../../Components/SmartSelect";
 
 export default {
     name: "LoadEdit",

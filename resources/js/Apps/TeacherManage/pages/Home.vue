@@ -24,8 +24,8 @@
 
 <script>
 import {mapGetters} from "vuex";
-import SmartTable from "../components/SmartTable";
-import TextInput from "../components/Inputs/TextInput";
+import SmartTable from "../../../Components/SmartTable";
+import TextInput from "../../../Components/Inputs/TextInput";
 export default {
     name: "Home",
     data: () => ({

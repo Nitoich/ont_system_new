@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import TextInput from "../components/Inputs/TextInput";
-import StandardButton from "../components/Buttons/StandardButton";
+import TextInput from "../../../Components/Inputs/TextInput";
+import StandardButton from "../../../Components/Buttons/StandardButton";
 import {mapGetters} from "vuex";
 export default {
     name: "Login",

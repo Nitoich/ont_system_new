@@ -13,7 +13,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import StandardButton from "../components/Buttons/StandardButton";
+import StandardButton from "../../../Components/Buttons/StandardButton";
 
 export default {
     name: "Index",

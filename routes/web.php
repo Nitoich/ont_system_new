@@ -21,6 +21,14 @@ Route::get('/manage', function () {
     return redirect('/manage/home');
 });
 
+Route::get('/admin/{any}', function () {
+    return view('admin');
+});
+
+Route::get('/admin', function () {
+    return redirect('/admin/home');
+});
+
 Route::get('/{any}', function () {
     return view('home');
-})->where('any', '((?!api|manage).)*');
+})->where('any', '((?!api|manage|admin).)*');

@@ -1,6 +1,6 @@
 <template>
     <div ref="main" tabindex="0" class="w-[200px] h-[46px] overflow-visible relative">
-        <div @click="focus" class="header mt-[12px] px-2 border-b-2">
+        <div @click="focus" class="header mt-[12px] px-2 border-b-2 min-h-[26px]">
             <span v-if="this.value">{{ this.items[this.value] }}</span>
         </div>
         <div style="display: none;" ref="itemsList" class="items max-h-[150px] w-full overflow-x-auto absolute top-100 left-0 bg-white z-10">
