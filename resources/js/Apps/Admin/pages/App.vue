@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row">
+    <div class="flex flex-row bg-slate-200">
         <a-side></a-side>
         <div class="container mx-auto flex-1 px-2">
             <router-view></router-view>

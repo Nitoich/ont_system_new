@@ -16,7 +16,6 @@
             <standard-button @click="save" label="Применить"></standard-button>
             <danger-button @click="$router.back()" label="Отменить"></danger-button>
         </div>
-
     </div>
 </template>
 

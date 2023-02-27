@@ -1,5 +1,4 @@
 import http from "../http";
-import {value} from "lodash/seq";
 
 export default {
     state: {
@@ -60,6 +59,6 @@ export default {
                 console.log('redirect')
                 window.location.href = '/';
             }
-        }
+        },
     }
 };

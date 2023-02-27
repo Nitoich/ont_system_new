@@ -20,6 +20,10 @@ Route::middleware('jwt_auth')->group(function () {
         Route::get('/', [\App\Http\Controllers\api\UserController::class, 'index']);
     });
 
+    Route::prefix('/role')->group(function () {
+        Route::get('/', [\App\Http\Controllers\api\RoleController::class, 'index']);
+    });
+
     Route::prefix('/group')->group(function() {
         Route::post('/', [\App\Http\Controllers\api\GroupController::class, 'create']);
         Route::get('/', [\App\Http\Controllers\api\GroupController::class, 'getAll']);

@@ -17,6 +17,7 @@
                 created_at: 'Дата регистрации'
             }"
             :items="this.users"
+            @item-click="itemClick"
         ></smart-table>
     </div>
 </template>
@@ -68,6 +69,11 @@ export default {
     components: {
         SmartTable,
         'v-filter': Filter
+    },
+    methods: {
+        itemClick(event, item) {
+            this.$router.push(`/admin/user/${item.id}`);
+        }
     },
     mounted() {
         if(this.is_auth) {

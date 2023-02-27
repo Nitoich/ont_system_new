@@ -3,15 +3,22 @@ import http from "../http";
 export default {
     state: {
         user: undefined,
-        roles: undefined,
+        my_roles: [],
         users: []
     },
     getters: {
         user: (state) => {
             return state.user;
         },
-        roles: (state) => {
-            return state.roles;
+        my_roles_formated: (state) => {
+            const roles = {};
+            state.my_roles.forEach(el => {
+                roles[el.slug] = el.name;
+            })
+            return roles;
+        },
+        my_roles: (state) => {
+            return state.my_roles;
         },
         user_id: (state) => {
             return state.user.id;
@@ -24,8 +31,8 @@ export default {
         user: (state, value) => {
             state.user = value;
         },
-        roles: (state, value) => {
-            state.roles = value;
+        my_roles: (state, value) => {
+            state.my_roles = value;
         },
         users: (state, value) => {
             state.users = value;
@@ -46,11 +53,11 @@ export default {
         async getMyRoles(context) {
             await http.get(`/api/v1/user/${context.getters.user_id}/role`)
                 .then(response => {
-                    context.commit('roles', response.data)
+                    context.commit('my_roles', response.data)
                 })
         },
         hasRole(context, roles_slugs) {
-            const roles = context.getters.roles;
+            const roles = context.getters.my_roles;
             for(let i = 0; i < roles.length; i++) {
                 if(roles_slugs.includes(roles[i].slug)) {
                     // console.log(role_slug)
@@ -74,6 +81,12 @@ export default {
                 .then(response => {
                     context.commit('users', response.data.data)
                 })
+        },
+        getUser(context, id) {
+            return http.get(`/api/v1/user/${id}`)
+                .then(response => {
+                    return response;
+                });
         }
     }
 };

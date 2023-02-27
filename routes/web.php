@@ -23,7 +23,7 @@ Route::get('/manage', function () {
 
 Route::get('/admin/{any}', function () {
     return view('admin');
-});
+})->where('any', '((?!api).)*');
 
 Route::get('/admin', function () {
     return redirect('/admin/home');
