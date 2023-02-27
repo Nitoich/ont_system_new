@@ -1,11 +1,10 @@
 <template>
-    <div class="aside min-w-[75px] h-screen bg-slate-500 border-r-4 border-slate-800">
-        <div class="aside__list">
-            <div :class="$route.name == key ? 'bg-slate-600' : ''" @click="$router.push(item.url)" v-for="(item, key) in menu_items" class="aside__item p-2 flex flex-col justify-center items-center gap-1 hover:bg-slate-600 cursor-pointer">
-                <div :style="`background-image: url('${item.icon}');`" class="icon w-[50px] h-[50px] bg-cover bg-no-repeat bg-center"></div>
-                <p class="text-xs">{{ item.name }}</p>
-            </div>
-        </div>
+    <div class="aside min-w-[75px] h-screen border-r-4 border-slate-800">
+        <nav aria-label="Main Nav" class="flex flex-col">
+            <a @click="$event.preventDefault(); $router.push(item.url)" v-for="(item, key) in menu_items" :class="$route.meta.page_group == key ? 'flex items-center gap-2 border-l-[3px] border-blue-500 bg-blue-50 px-4 py-3 text-blue-700 cursor-pointer' : 'flex items-center gap-2 border-l-[3px] border-transparent px-4 py-3 text-gray-500 hover:border-gray-100 hover:bg-gray-50 hover:text-gray-700 cursor-pointer'" class="">
+                <span class="text-sm font-medium"> {{ item.name }} </span>
+            </a>
+        </nav>
     </div>
 </template>
 

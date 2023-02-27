@@ -2,7 +2,7 @@
     <div>
         <tabs
             :tabs="{
-                'user-edit': 'Основное',
+                'user-general': 'Основное',
                 'user-roles': 'Роли'
             }"
         ></tabs>

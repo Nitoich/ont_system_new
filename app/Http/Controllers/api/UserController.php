@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserRoleResource;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,5 +28,14 @@ class UserController extends Controller
     ) {
         $users = User::query()->filter($filter)->paginate(10);
         return response()->json(UserResource::collection($users)->response()->getData(true))->setStatusCode(200);
+    }
+
+    public function getUser(
+        UserService $userService,
+        int $id
+    ) {
+        return response()->json([
+            'data' => UserResource::make($userService->getById($id))
+        ]);
     }
 }
