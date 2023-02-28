@@ -19,7 +19,7 @@
 <!--                <span>{{ tab }}</span>-->
 <!--            </div>-->
 <!--        </div>-->
-        <div class="content bg-white p-1">
+        <div class="content bg-white p-1 py-5">
             <router-view></router-view>
         </div>
     </div>

@@ -10,13 +10,6 @@ export default {
         user: (state) => {
             return state.user;
         },
-        my_roles_formated: (state) => {
-            const roles = {};
-            state.my_roles.forEach(el => {
-                roles[el.slug] = el.name;
-            })
-            return roles;
-        },
         my_roles: (state) => {
             return state.my_roles;
         },
@@ -87,6 +80,9 @@ export default {
                 .then(response => {
                     return response;
                 });
+        },
+        updateUser(context, user) {
+            return http.patch(`/api/v1/user/${user.id}`, user);
         }
     }
 };

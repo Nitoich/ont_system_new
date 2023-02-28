@@ -3,6 +3,7 @@ import Users from "../pages/Users";
 import UserEdit from "../pages/UserEdit";
 import Roles from "../pages/UserEdit/Roles";
 import General from "../pages/UserEdit/General";
+import Permissions from "../pages/UserEdit/Permissions";
 
 export default [
     { path: '/admin/home', component: Home, name: 'home', meta: { page_group: 'home' }},
@@ -16,7 +17,8 @@ export default [
         },
         children: [
             { path: '', component: General, name: 'user-general', meta: { page_group: 'users' } },
-            { path: 'roles', component: Roles, name: 'user-roles', meta: { page_group: 'users' }}
+            { path: 'roles', component: Roles, name: 'user-roles', meta: { page_group: 'users' } },
+            { path: 'permission', component: Permissions, name: 'user-permission', meta: { page_group: 'users' } }
         ]
     }
 ];

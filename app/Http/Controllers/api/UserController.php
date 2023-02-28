@@ -4,8 +4,11 @@ namespace App\Http\Controllers\api;
 
 use App\Filters\UsersFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\AddRolesRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserRoleResource;
+use App\Models\Role;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -37,5 +40,30 @@ class UserController extends Controller
         return response()->json([
             'data' => UserResource::make($userService->getById($id))
         ]);
+    }
+
+    public function update(
+        UpdateUserRequest $request,
+        UserService $userService,
+        int $id
+    ) {
+        return response()->json($userService->update($id, $request->all()));
+    }
+
+    public function setRoles(
+        AddRolesRequest $request,
+        UserService $userService,
+        int $user_id
+    ) {
+        $user = $userService->getById($user_id);
+        $roles_ids = $request->roles_ids;
+//        $roles = Role::query();
+//        foreach ($roles_ids as $roles_id) {
+//            $roles = $roles->orWhere('id', $roles_id);
+//        }
+//        $roles = $roles->get();
+        $user->roles()->sync($roles_ids);
+
+        return response()->json()->setStatusCode(200);
     }
 }

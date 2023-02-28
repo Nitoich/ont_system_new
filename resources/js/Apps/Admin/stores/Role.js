@@ -24,6 +24,11 @@ export default {
         },
         getRolesByUserId({}, id) {
             return http.get(`/api/v1/user/${id}/role`)
+        },
+        setRoles({}, {user_id, roles_ids}) {
+            return http.post(`/api/v1/user/${user_id}/role`, {
+                roles_ids
+            });
         }
     }
 

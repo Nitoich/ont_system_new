@@ -26,7 +26,7 @@ Route::get('/admin/{any}', function () {
 })->where('any', '((?!api).)*');
 
 Route::get('/admin', function () {
-    return redirect('/admin/');
+    return redirect('/admin/home');
 });
 
 Route::get('/{any}', function () {

@@ -3,7 +3,8 @@
         <tabs
             :tabs="{
                 'user-general': 'Основное',
-                'user-roles': 'Роли'
+                'user-roles': 'Роли',
+                'user-permission': 'Права'
             }"
         ></tabs>
     </div>

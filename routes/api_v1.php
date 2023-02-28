@@ -17,8 +17,10 @@ Route::middleware('jwt_auth')->group(function () {
 
     Route::prefix('/user')->group(function () {
         Route::get('/{id}/role', [\App\Http\Controllers\api\UserController::class, 'getRoles']);
+        Route::post('/{id}/role', [\App\Http\Controllers\api\UserController::class, 'setRoles']);
         Route::get('/{id}', [\App\Http\Controllers\api\UserController::class, 'getUser']);
         Route::get('/', [\App\Http\Controllers\api\UserController::class, 'index']);
+        Route::patch('/{id}', [\App\Http\Controllers\api\UserController::class, 'update']);
     });
 
     Route::prefix('/role')->group(function () {
