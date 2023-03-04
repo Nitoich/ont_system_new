@@ -1,7 +1,7 @@
 <template>
     <div class="filter relative py-1">
-        <div @click="focus" class="accepted-filters flex gap-2 min-h-[40px] max-w-full border-2 border-slate-600 overflow-auto">
-            <div v-for="(field, key) in this.acceptedFields" class="accepted-field p-1.5 bg-main-blue">
+        <div @click="focus" class="accepted-filters flex gap-2 p-2 min-h-[40px] max-w-full border-2 border-slate-600 overflow-auto">
+            <div v-for="(field, key) in this.acceptedFields" class="accepted-field p-1.5 bg-main-blue rounded-lg">
                 <span class="whitespace-nowrap">{{ field.name }}: {{ field.value }}</span>
             </div>
         </div>

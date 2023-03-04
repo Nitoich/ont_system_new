@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-row bg-slate-200">
+    <div class="flex flex-row bg-slate-200 overflow-hidden max-h-screen">
         <a-side></a-side>
-        <div class="container mx-auto flex-1 px-2">
+        <div class="container mx-auto flex-1 px-2 overflow-auto max-h-screen">
             <router-view></router-view>
         </div>
     </div>

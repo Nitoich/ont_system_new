@@ -46,7 +46,7 @@ export default {
         async getMyRoles(context) {
             await http.get(`/api/v1/user/${context.getters.user_id}/role`)
                 .then(response => {
-                    context.commit('my_roles', response.data)
+                    context.commit('my_roles', response.data.data)
                 })
         },
         hasRole(context, roles_slugs) {
@@ -72,7 +72,7 @@ export default {
                 params
             })
                 .then(response => {
-                    context.commit('users', response.data.data)
+                    context.commit('users', response.data);
                 })
         },
         getUser(context, id) {
@@ -83,6 +83,9 @@ export default {
         },
         updateUser(context, user) {
             return http.patch(`/api/v1/user/${user.id}`, user);
+        },
+        createUser(context, fields) {
+            return http.post('/api/v1/user', fields);
         }
     }
 };

@@ -41,9 +41,7 @@ http.interceptors.request.use((config) => {
 
 http.interceptors.response.use((response) => {
     return response;
-}, (error) => {
-    return error;
-})
+});
 
 // store.dispatch('refresh')
 //     .then(response => {

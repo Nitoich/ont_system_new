@@ -16,6 +16,7 @@ Route::middleware('jwt_auth')->group(function () {
     Route::middleware('permission:read_self_sessions')->get('/session', [\App\Http\Controllers\api\SessionController::class, 'getSessions']);
 
     Route::prefix('/user')->group(function () {
+        Route::post('/', [\App\Http\Controllers\api\UserController::class, 'store']);
         Route::get('/{id}/role', [\App\Http\Controllers\api\UserController::class, 'getRoles']);
         Route::post('/{id}/role', [\App\Http\Controllers\api\UserController::class, 'setRoles']);
         Route::get('/{id}', [\App\Http\Controllers\api\UserController::class, 'getUser']);

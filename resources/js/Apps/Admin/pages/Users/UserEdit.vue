@@ -12,7 +12,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Tabs from "../../../Components/Tabs";
+import Tabs from "../../../../Components/Tabs";
 
 export default {
     name: "UserEdit",

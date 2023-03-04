@@ -3,10 +3,11 @@
         <div class="header flex items-center">
             <v-filter class="flex-1" :fields="filter" v-model="filterValues"></v-filter>
             <div class="btns">
-                <standard-button label="Создать пользователя"></standard-button>
+                <standard-button @click="$router.push('/admin/user/new')" label="Создать пользователя"></standard-button>
             </div>
         </div>
         <smart-table
+            class="min-h-[408px]"
             :headers="{
                 id: 'ID',
                 email: 'EMAIL',
@@ -16,16 +17,21 @@
                 birth_day: 'Дата Рождения',
                 created_at: 'Дата регистрации'
             }"
-            :items="this.users"
+            :items="this.users.data"
             @item-click="itemClick"
         ></smart-table>
+        <default-pagination @click="paginationClick" class="py-2"
+            :pagination-meta="this.users.meta"
+        ></default-pagination>
     </div>
 </template>
 
 <script>
-import SmartTable from "../../../Components/SmartTable";
+import SmartTable from "../../../../Components/SmartTable";
 import {mapGetters} from "vuex";
-import Filter from "../../../Components/Filter";
+import Filter from "../../../../Components/Filter";
+import DefaultPagination from "../../../../Components/Pagination/DefaultPagination";
+import http from "../../http";
 
 export default {
     name: "Users",
@@ -68,11 +74,18 @@ export default {
     }),
     components: {
         SmartTable,
-        'v-filter': Filter
+        'v-filter': Filter,
+        DefaultPagination
     },
     methods: {
         itemClick(event, item) {
             this.$router.push(`/admin/user/${item.id}`);
+        },
+        paginationClick(event, link) {
+            http.get(link.url)
+                .then(response => {
+                    this.$store.commit('users', response.data)
+                })
         }
     },
     mounted() {
