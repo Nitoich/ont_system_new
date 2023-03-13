@@ -607,11 +607,17 @@ video {
 .h-\[30px\] {
   height: 30px;
 }
+.h-\[450px\] {
+  height: 450px;
+}
 .h-\[46px\] {
   height: 46px;
 }
 .h-\[50px\] {
   height: 50px;
+}
+.h-full {
+  height: 100%;
 }
 .h-max {
   height: -moz-max-content;

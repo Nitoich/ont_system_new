@@ -26,12 +26,15 @@ class SessionController extends Controller
         if(!$token) {
             throw new HttpResponseException(response()->json([
                 'error' => [
-                    'code' => 400,
+                    'code' => 403,
                     'message' => 'Не указан refresh_token'
                 ]
-            ])->setStatusCode(400));
+            ])->setStatusCode(403));
         }
 
+        if(strripos('|', $token)) {
+
+        }
 //        $token = explode('|', Crypt::decryptString($token))[1];
 
         $session = $sessionService->getByToken($token)->refreshToken();

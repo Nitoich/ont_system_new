@@ -20,9 +20,6 @@ export default {
             .then(response => {
                 this.$store.dispatch('checkRoles');
             })
-            .catch((error) => {
-                this.$router.replace('/admin/login')
-            }) ;
     }
 }
 </script>

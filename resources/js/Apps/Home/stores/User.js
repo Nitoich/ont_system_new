@@ -61,11 +61,11 @@ export default {
         },
         async checkRoles(context) {
             await context.dispatch('getMyUserData');
-            const has = await context.dispatch('hasRole', ['admin']);
-            if(!has) {
-                console.log('redirect')
-                // window.location.href = '/';
-            }
+            // const has = await context.dispatch('hasRole', ['admin']);
+            // if(!has) {
+            //     console.log('redirect')
+            //     window.location.href = '/';
+            // }
         },
         getUsers(context, params = {}) {
             return http.get('/api/v1/user', {

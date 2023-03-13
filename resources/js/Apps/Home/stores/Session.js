@@ -1,5 +1,4 @@
 import axios from "axios";
-import router from "../router/router";
 
 export default {
     state: {
@@ -33,13 +32,6 @@ export default {
                     context.state.is_auth = true;
                     return response;
                 })
-                .catch(error => {
-                    const response = error.response;
-                    if(response.status == 403) {
-                        window.location.href = `/login?back_url=${router.history.current.path}`;
-                    }
-                });
-
         },
         login: async (context, data) => {
             return await axios.post('/api/v1/login', data, {

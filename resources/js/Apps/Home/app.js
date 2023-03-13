@@ -4,6 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import http from "./http";
+
 require('../../bootstrap');
 
 window.Vue = require('vue').default;
@@ -24,10 +26,20 @@ window.Vue = require('vue').default;
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.component('standard-button', require('../../Components/Buttons/StandardButton').default);
+Vue.component('text-input', require('../../Components/Inputs/TextInput').default);
 
 import router from "./router/Router";
 import store from "./Store";
+
+http.interceptors.request.use((config) => {
+    config.headers.common['Authorization'] = `Bearer ${store.getters.access_token}`;
+    return config;
+});
+
+http.interceptors.response.use((response) => {
+    return response;
+});
 
 const App = require("./pages/App").default;
 const app = new window.Vue({

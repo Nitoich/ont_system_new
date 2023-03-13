@@ -40,9 +40,29 @@ http.interceptors.request.use((config) => {
     return config;
 });
 
+
 http.interceptors.response.use((response) => {
     return response;
 }, (error) => {
+    const response = error.response;
+    console.log(response);
+
+    if(response.status === 403) {
+        window.location.href = `/login?back_url=${router.history.current.path}`;
+    }
+
+    axios.post('/api/v1/session/refresh')
+        .then(response => {
+            store.commit('access_token', response.data.data.access_token)
+        })
+        .catch(err => {
+            const res = err.response;
+            console.log(res);
+            if(res.status === 403) {
+                window.location.href = `/login?back_url=${router.history.current.path}`;
+            }
+        })
+
     return error;
 })
 
@@ -54,6 +74,8 @@ http.interceptors.response.use((response) => {
 //         router.replace('/manage/login')
 //     }) ;
 window.Loader = new Loader();
+
+
 const App = require("./pages/App").default;
 const app = new window.Vue({
     el: '#app',

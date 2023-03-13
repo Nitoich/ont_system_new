@@ -31,22 +31,18 @@ export default {
                     context.commit('user', response.data);
                     await context.dispatch('getMyRoles');
                 })
-                .catch(error => {
-                    console.log(error.response);
-                    // console.log('error')
-                })
         },
         async getMyRoles(context) {
             await http.get(`/api/v1/user/${context.getters.user_id}/role`)
                 .then(response => {
-                    context.commit('roles', response.data)
+                    context.commit('roles', response.data.data)
                 })
         },
         hasRole(context, roles_slugs) {
             const roles = context.getters.roles;
             for(let i = 0; i < roles.length; i++) {
+                console.log(i)
                 if(roles_slugs.includes(roles[i].slug)) {
-                    // console.log(role_slug)
                     return true;
                 }
             }
@@ -55,6 +51,7 @@ export default {
         async checkRoles(context) {
             await context.dispatch('getMyUserData');
             const has = await context.dispatch('hasRole', ['teacher', 'admin']);
+            console.log(has);
             if(!has) {
                 console.log('redirect')
                 window.location.href = '/';

@@ -60,6 +60,10 @@
                 cancel: {
                     name: 'Отменить',
                     cb: cancel
+                },
+                delete: {
+                    name: 'Удалить',
+                    cb: this.delete
                 }
             }"
             ></button-group>
@@ -85,6 +89,9 @@ export default {
         }
     },
     methods: {
+        delete() {
+
+        },
         async save() {
             const response = await this.accept();
             if(response) {
