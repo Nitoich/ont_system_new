@@ -5,6 +5,7 @@ import Roles from "../pages/Users/UserEdit/Roles";
 import General from "../pages/Users/UserEdit/General";
 import Permissions from "../pages/Users/UserEdit/Permissions";
 import AddUser from "../pages/Users/AddUser";
+import Loads from "../pages/Load/Loads";
 
 export default [
     { path: '/admin/home', component: Home, name: 'home', meta: { page_group: 'home' } },
@@ -23,4 +24,7 @@ export default [
             { path: 'permission', component: Permissions, name: 'user-permission', meta: { page_group: 'users' } }
         ]
     },
+    { path: '/admin/loads', component: Loads, name: 'loads', meta: { page_group: 'loads' } },
+    { path: '/admin/groups', component: {}, name: 'groups', meta: { page_group: 'groups' } },
+    { path: '/admin/disciplines', component: {}, name: 'disciplines', meta: { page_group: 'disciplines' } }
 ];

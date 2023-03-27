@@ -26,4 +26,8 @@ class Load extends Model
     public function discipline() {
         return $this->hasOne(Discipline::class, 'id', 'discipline_id');
     }
+
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

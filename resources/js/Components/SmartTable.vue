@@ -8,7 +8,14 @@
             </thead>
             <tbody>
                 <tr class="cursor-pointer hover:bg-slate-50" @click="$emit('item-click', $event, item)" v-for="item in this.items">
-                    <td v-for="(fields, key_fields) in headers" class="border border-slate-300 p-1.5 text-center">{{ item[key_fields] }}</td>
+                    <td v-for="(fields, key_fields) in headers" class="border border-slate-300 p-1.5 text-center">
+                        <template v-if="typeof linkColumns !== 'undefined' && typeof linkColumns[key_fields] !== 'undefined'">
+                            <router-link class="text-blue-400 underline" :to="linkColumns[key_fields](item)">{{ item[key_fields] }}</router-link>
+                        </template>
+                        <template v-else>
+                            {{ item[key_fields] }}
+                        </template>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -25,6 +32,10 @@ export default {
         },
         items: {
             type: Array,
+        },
+        linkColumns: {
+            type: [Object, undefined],
+            default: undefined
         }
     },
 

@@ -34,14 +34,26 @@ import router from "./router/router";
 import store from "./Store";
 import http from "./http";
 
+const onResponseFulilled = (response) => {
+    return response;
+};
+
+const onResponseRejected = (error) => {
+    console.log(error.response);
+    const response = error.response;
+    if(response.status == 401) {
+
+    }
+    return error;
+};
+
 http.interceptors.request.use((config) => {
     config.headers.common['Authorization'] = `Bearer ${store.getters.access_token}`;
     return config;
 });
 
-http.interceptors.response.use((response) => {
-    return response;
-});
+http.interceptors.response.use(onResponseFulilled, onResponseRejected);
+
 
 // store.dispatch('refresh')
 //     .then(response => {

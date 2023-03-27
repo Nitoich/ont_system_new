@@ -17,8 +17,10 @@
                 birth_day: 'Дата Рождения',
                 created_at: 'Дата регистрации'
             }"
+            :link-columns="{
+                id: (item) => { return `/admin/user/${item.id}`; }
+            }"
             :items="this.users.data"
-            @item-click="itemClick"
         ></smart-table>
         <default-pagination @click="paginationClick" class="py-2"
             :pagination-meta="this.users.meta"
@@ -82,7 +84,9 @@ export default {
             this.$router.push(`/admin/user/${item.id}`);
         },
         paginationClick(event, link) {
-            http.get(link.url)
+            http.get(link.url, {
+                params: this.filterValues
+            })
                 .then(response => {
                     this.$store.commit('users', response.data)
                 })

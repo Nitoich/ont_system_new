@@ -13,9 +13,12 @@ export default {
     name: "ASide",
     data: () => ({
         menu_items: {
-            home: { name: 'Главная', icon: '/images/admin/icon_home.png', url: '/admin/home' },
-            users: { name: 'Пользователи', icon: '/images/admin/users.png', url: '/admin/users' },
-            d: { name: 'Главная', icon: '/images/admin/icon_home.png', url: '/admin/' },
+            home: { name: 'Главная', url: '/admin/home' },
+            users: { name: 'Пользователи', url: '/admin/users' },
+            loads: { name: 'Нагрузка', url: '/admin/loads' },
+            groups: { name: 'Группы', url: '/admin/groups' },
+            discipline: { name: 'Дисциплины', url: '/admin/disciplines' },
+            roles: { name: 'Роли', url: '/admin/roles' },
         }
     })
 }

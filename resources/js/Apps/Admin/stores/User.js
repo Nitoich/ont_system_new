@@ -32,6 +32,10 @@ export default {
         }
     },
     actions: {
+        async getMyPermissions(context) {
+            await http.get()
+                .then(response => response.data);
+        },
         async getMyUserData(context) {
             await http.get('/api/v1/me')
                 .then(async response => {

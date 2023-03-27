@@ -2617,6 +2617,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "SmartTable",
@@ -2627,6 +2634,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     items: {
       type: Array
+    },
+    linkColumns: {
+      type: [Object, undefined],
+      "default": undefined
     }
   }
 });
@@ -3096,7 +3107,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return response;
               })["catch"](function (error) {
                 var response = error.response;
-                if (response.status == 403) {
+                if (response.status == 403 || response.status == 404) {
                   window.location.href = "/login?back_url=".concat(_router_router__WEBPACK_IMPORTED_MODULE_1__["default"].history.current.path);
                 }
               });
@@ -21860,7 +21871,28 @@ var render = function () {
               return _c(
                 "td",
                 { staticClass: "border border-slate-300 p-1.5 text-center" },
-                [_vm._v(_vm._s(item[key_fields]))]
+                [
+                  typeof _vm.linkColumns !== "undefined" &&
+                  typeof _vm.linkColumns[key_fields] !== "undefined"
+                    ? [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "text-blue-400 underline",
+                            attrs: { to: _vm.linkColumns[key_fields](item) },
+                          },
+                          [_vm._v(_vm._s(item[key_fields]))]
+                        ),
+                      ]
+                    : [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(item[key_fields]) +
+                            "\n                    "
+                        ),
+                      ],
+                ],
+                2
               )
             }),
             0

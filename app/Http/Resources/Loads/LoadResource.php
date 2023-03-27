@@ -17,6 +17,8 @@ class LoadResource extends JsonResource
         return [
             'id' => $this->id,
             'group_id' => $this->group_id,
+            'user_id' => $this->user_id,
+            'user_full_name' => "{$this->user->last_name} {$this->user->first_name}",
             'group_name' => $this->group->name,
             'discipline_id' => $this->discipline_id,
             'discipline_name' => $this->discipline->name,

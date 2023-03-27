@@ -35,7 +35,7 @@ export default {
                 })
                 .catch(error => {
                     const response = error.response;
-                    if(response.status == 403) {
+                    if(response.status == 403 || response.status == 404) {
                         window.location.href = `/login?back_url=${router.history.current.path}`;
                     }
                 });

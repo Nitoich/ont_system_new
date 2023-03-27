@@ -19,7 +19,7 @@ export default {
         this.$store.dispatch('refresh')
             .then(response => {
                 this.$store.dispatch('checkRoles');
-            })
+            });
     }
 }
 </script>
