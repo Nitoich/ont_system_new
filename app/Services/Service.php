@@ -27,6 +27,14 @@ abstract class Service
         return $data_unit;
     }
 
+    public function getByPrimary(string $primary) {
+        $data_unit = $this->model_instance->query()->find($primary);
+        if(!$data_unit) {
+            throw new HttpResponseException(response()->json($this->exception_NotFoundData())->setStatusCode(404));
+        }
+        return $data_unit;
+    }
+
     public function create(array $fields): \Illuminate\Database\Eloquent\Model {
         $data_unit = new $this->model($fields);
         $data_unit->save();

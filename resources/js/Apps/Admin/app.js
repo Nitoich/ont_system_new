@@ -54,6 +54,20 @@ http.interceptors.request.use((config) => {
 
 http.interceptors.response.use(onResponseFulilled, onResponseRejected);
 
+store.dispatch('refresh')
+    .then(async response => {
+        await store.dispatch('checkRoles');
+    }).then(() => {
+        const App = require("./pages/App").default;
+        const app = new window.Vue({
+            el: '#app',
+            router,
+            store: store,
+            components: {
+                App: App
+            }
+        });
+    });
 
 // store.dispatch('refresh')
 //     .then(response => {
@@ -62,12 +76,4 @@ http.interceptors.response.use(onResponseFulilled, onResponseRejected);
 //     .catch((error) => {
 //         router.replace('/manage/login')
 //     }) ;
-const App = require("./pages/App").default;
-const app = new window.Vue({
-    el: '#app',
-    router,
-    store: store,
-    components: {
-        App: App
-    }
-});
+

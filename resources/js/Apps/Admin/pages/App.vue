@@ -16,10 +16,7 @@ export default {
         ASide
     },
     created() {
-        this.$store.dispatch('refresh')
-            .then(response => {
-                this.$store.dispatch('checkRoles');
-            });
+
     }
 }
 </script>

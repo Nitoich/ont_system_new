@@ -82,4 +82,8 @@ Route::middleware('jwt_auth')->group(function () {
         Route::patch('/{id}', [\App\Http\Controllers\api\LoadController::class, 'update']);
         Route::delete('/{id}', [\App\Http\Controllers\api\LoadController::class, 'destroy']);
     });
+
+    Route::prefix('/data-storage')->group(function () {
+        Route::get('/{key}', [\App\Http\Controllers\api\DataStorageController::class, 'show']);
+    });
 });

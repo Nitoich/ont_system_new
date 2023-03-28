@@ -2739,12 +2739,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     checkRoles: function checkRoles(context) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var has;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
               return context.dispatch('getMyUserData');
             case 2:
+              _context4.next = 4;
+              return context.dispatch('hasRole', ['admin']);
+            case 4:
+              has = _context4.sent;
+              if (!has) {
+                console.log('redirect');
+                window.location.href = '/';
+              }
+            case 6:
             case "end":
               return _context4.stop();
           }

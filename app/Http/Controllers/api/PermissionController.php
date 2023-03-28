@@ -5,13 +5,14 @@ namespace App\Http\Controllers\api;
 use App\Filters\PermissionsFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
     public function index(
         PermissionsFilter $filter
-    )
+    ): JsonResponse
     {
         $permissions = Permission::query()->filter($filter)->get();
         return response()->json([
