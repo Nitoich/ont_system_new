@@ -19,7 +19,7 @@ class DataStorageSeeder extends Seeder
                 "key" => "admin_left_menu_accesses",
                 "value" => [
                     'users' => ['admin'],
-                    'loads' => ['admin', 'teacher'],
+                    'loads' => ['teacher', 'admin'],
                     'groups' => ['admin'],
                     'discipline' => ['admin'],
                     'roles' => ['admin']

@@ -18,7 +18,7 @@
                 created_at: 'Дата регистрации'
             }"
             :link-columns="{
-                id: (item) => { return `/admin/user/${item.id}`; }
+                email: (item) => { return `/admin/user/${item.id}`; }
             }"
             :items="this.users.data"
         ></smart-table>

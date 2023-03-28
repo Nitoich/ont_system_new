@@ -23755,7 +23755,7 @@ var render = function () {
             created_at: "Дата регистрации",
           },
           "link-columns": {
-            id: function (item) {
+            email: function (item) {
               return "/admin/user/" + item.id
             },
           },
