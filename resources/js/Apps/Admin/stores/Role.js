@@ -29,6 +29,10 @@ export default {
             return http.post(`/api/v1/user/${user_id}/role`, {
                 roles_ids
             });
+        },
+        getRole(context, id) {
+            console.log(id)
+            return http.get(`/api/v1/role/${id}`);
         }
     }
 

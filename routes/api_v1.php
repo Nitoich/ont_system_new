@@ -26,6 +26,7 @@ Route::middleware('jwt_auth')->group(function () {
 
     Route::prefix('/role')->group(function () {
         Route::get('/', [\App\Http\Controllers\api\RoleController::class, 'index']);
+        Route::get('/{id}', [\App\Http\Controllers\api\RoleController::class, 'show']);
     });
 
     Route::prefix('/group')->group(function() {

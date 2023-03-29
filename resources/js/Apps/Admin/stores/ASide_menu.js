@@ -19,9 +19,7 @@ export default {
             for(const [key, value] of Object.entries(state.menu_items)) {
                 const role_list = state.menu_items_access[key];
                 if(typeof role_list === 'undefined') { result[key] = value; continue; }
-                console.log(store.getters.my_roles)
                 store.getters.my_roles.forEach(role => {
-                    console.log(role)
                     if(role_list.includes(role.slug)) {
                         result[key] = value;
                     }
