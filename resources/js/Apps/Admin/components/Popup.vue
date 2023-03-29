@@ -3,6 +3,12 @@
         <div class="content min-h-[200px] min-w-[400px] bg-white p-3 rounded-lg">
             <component :is="this.component"></component>
         </div>
+        <div @click="closePopup" class="group cross absolute top-[2%] right-[2%] w-[50px] h-[50px] flex justify-center items-center cursor-pointer">
+            <div class="relative w-[50px] h-[50px]">
+                <span class="bg-slate-100 group-hover:bg-slate-400 block w-[45px] h-[5px] absolute top-[50%] left-50% translate-x-[50%] translate-y-[50%] rotate-45"></span>
+                <span class="bg-slate-100 group-hover:bg-slate-400 block w-[45px] h-[5px] absolute top-[50%] left-50% translate-x-[50%] translate-y-[50%] -rotate-45"></span>
+            </div>
+        </div>
     </div>
 </template>
 

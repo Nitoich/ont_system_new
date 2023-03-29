@@ -2302,6 +2302,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Popup",
@@ -23567,7 +23573,7 @@ var render = function () {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "py-1.5" },
+      { staticClass: "py-1.5 flex justify-end" },
       [
         _c("ButtonGroup", {
           attrs: {
@@ -23632,11 +23638,38 @@ var render = function () {
             [_c(this.component, { tag: "component" })],
             1
           ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "group cross absolute top-[2%] right-[2%] w-[50px] h-[50px] flex justify-center items-center cursor-pointer",
+              on: { click: _vm.closePopup },
+            },
+            [_vm._m(0)]
+          ),
         ]
       )
     : _vm._e()
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "relative w-[50px] h-[50px]" }, [
+      _c("span", {
+        staticClass:
+          "bg-slate-100 group-hover:bg-slate-400 block w-[45px] h-[5px] absolute top-[50%] left-50% translate-x-[50%] translate-y-[50%] rotate-45",
+      }),
+      _vm._v(" "),
+      _c("span", {
+        staticClass:
+          "bg-slate-100 group-hover:bg-slate-400 block w-[45px] h-[5px] absolute top-[50%] left-50% translate-x-[50%] translate-y-[50%] -rotate-45",
+      }),
+    ])
+  },
+]
 render._withStripped = true
 
 

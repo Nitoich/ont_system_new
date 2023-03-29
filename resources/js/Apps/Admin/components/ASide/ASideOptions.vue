@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="py-1.5">
+        <div class="py-1.5 flex justify-end">
             <ButtonGroup :buttons="[
                 {
                     name: 'Сохранить',
