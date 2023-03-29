@@ -85,5 +85,6 @@ Route::middleware('jwt_auth')->group(function () {
 
     Route::prefix('/data-storage')->group(function () {
         Route::get('/{key}', [\App\Http\Controllers\api\DataStorageController::class, 'show']);
+        Route::put('/{key}', [\App\Http\Controllers\api\DataStorageController::class, 'put']);
     });
 });
