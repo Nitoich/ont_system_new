@@ -14,9 +14,9 @@ class CreateDataStoragesTable extends Migration
     public function up()
     {
         Schema::create('data_storages', function (Blueprint $table) {
+            $table->id();
             $table->string('key')->unique();
             $table->text('value');
-            $table->primary(['key']);
         });
     }
 
