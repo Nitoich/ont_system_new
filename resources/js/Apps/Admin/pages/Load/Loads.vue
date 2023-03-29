@@ -23,7 +23,7 @@
             :items="loads"
         ></smart-table>
         <default-pagination
-            :pagination-meta="this.loads_pagination"
+            :pagination-meta="this.loads.meta"
             @click="paginationClick"
         ></default-pagination>
     </div>

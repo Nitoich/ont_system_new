@@ -8,7 +8,7 @@
         <nav>
             <standard-button @click="show_settings_popup = true" label="Настроить меню"></standard-button>
         </nav>
-        <Popup v-model="show_settings_popup"></Popup>
+        <Popup v-model="show_settings_popup" :component="popup_component"></Popup>
     </div>
 </template>
 
@@ -16,6 +16,7 @@
 import http from "../../http";
 import {mapGetters} from "vuex";
 import Popup from "../Popup.vue";
+import ASideOptions from "./ASideOptions.vue";
 
 export default {
     name: "ASide",
@@ -38,7 +39,8 @@ export default {
         },
         menu_items_access: {},
         items: {},
-        show_settings_popup: false
+        show_settings_popup: false,
+        popup_component: ASideOptions
     }),
     computed: {
         ...mapGetters([
