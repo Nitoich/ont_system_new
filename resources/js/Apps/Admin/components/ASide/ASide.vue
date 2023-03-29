@@ -1,17 +1,21 @@
 <template>
-    <div class="aside min-w-[75px] h-screen border-r-4 border-slate-800">
+    <div class="aside min-w-[75px] h-screen border-r-4 border-slate-800 flex flex-col justify-between">
         <nav aria-label="Main Nav" class="flex flex-col">
             <a @click="$event.preventDefault(); $router.push(item.url)" v-for="(item, key) in this.items" :class="$route.meta.page_group == key ? 'flex items-center gap-2 border-l-[3px] border-blue-500 bg-blue-50 px-4 py-3 text-blue-700 cursor-pointer' : 'flex items-center gap-2 border-l-[3px] border-transparent px-4 py-3 text-gray-500 hover:border-gray-100 hover:bg-gray-50 hover:text-gray-700 cursor-pointer'" class="">
                 <span class="text-sm font-medium"> {{ item.name }} </span>
             </a>
         </nav>
+        <nav>
+            <standard-button @click="show_settings_popup = true" label="Настроить меню"></standard-button>
+        </nav>
+        <Popup v-model="show_settings_popup"></Popup>
     </div>
 </template>
 
 <script>
 import http from "../../http";
 import {mapGetters} from "vuex";
-import role from "../../stores/Role";
+import Popup from "../Popup.vue";
 
 export default {
     name: "ASide",
@@ -33,13 +37,17 @@ export default {
             roles: { name: 'Роли', url: '/admin/roles' },
         },
         menu_items_access: {},
-        items: { name: '123'}
+        items: {},
+        show_settings_popup: false
     }),
     computed: {
         ...mapGetters([
             'is_auth',
             'my_roles'
         ]),
+    },
+    components: {
+        Popup
     },
     watch: {
         is_auth() {

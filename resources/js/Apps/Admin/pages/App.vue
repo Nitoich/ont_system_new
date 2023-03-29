@@ -9,14 +9,13 @@
 
 <script>
 import ASide from "../components/ASide/ASide";
+import Popup from "../components/Popup.vue";
 
 export default {
     name: "application",
     components: {
-        ASide
-    },
-    created() {
-
+        ASide,
+        Popup
     }
 }
 </script>
