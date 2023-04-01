@@ -1,27 +1,20 @@
 <template>
     <div class="p-3 bg-white">
-
-        <div class="fields" v-if="fields">
+        <div class="fields flex flex-col items-center gap-2" v-if="fields">
             <div class="field grid grid-cols-2 items-center">
                 <span class="text-right">ID:</span>
                 <span>{{ fields.id }}</span>
             </div>
 
-            <div class="field grid grid-cols-2 items-center">
-                <span class="text-right">Название:</span>
-                <span>
-                    <TextInput v-model="fields.name"></TextInput>
-                </span>
+            <div class="w-[370px]">
+                <TextInput v-model="fields.name" placeholder="Название"></TextInput>
             </div>
 
-            <div class="field grid grid-cols-2 items-center">
-                <span class="text-right">Код:</span>
-                <span>
-                    <TextInput v-model="fields.slug"></TextInput>
-                </span>
+            <div class="w-[370px]">
+                <TextInput v-model="fields.slug" placeholder="Код"></TextInput>
             </div>
         </div>
-        <div class="text-center">
+        <div class="text-center mt-2">
             <ButtonGroup
                 :buttons="[
                     {

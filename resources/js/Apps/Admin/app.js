@@ -44,7 +44,7 @@ const onResponseRejected = (error) => {
     if(response.status == 401) {
 
     }
-    return error;
+    throw error;
 };
 
 http.interceptors.request.use((config) => {

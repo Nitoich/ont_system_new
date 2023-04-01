@@ -16,7 +16,7 @@
                 slug: (item) => `/admin/role/${item.id}`,
             }"
         ></SmartTable>
-        <Popup v-model="show_create_new_role_popup"></Popup>
+        <Popup v-model="show_create_new_role_popup" :component="this.CreateRole"></Popup>
     </div>
 </template>
 
@@ -24,11 +24,12 @@
 import SmartTable from "../../../../Components/SmartTable.vue";
 import {mapGetters} from "vuex";
 import Popup from "../../components/Popup.vue";
+import CreateRole from "./CreateRole.vue";
 
 export default {
     name: "Roles",
     data: () => ({
-        show_create_new_role_popup: false
+        show_create_new_role_popup: false,
     }),
     mounted() {
         if(this.is_auth) {
@@ -44,7 +45,10 @@ export default {
         ...mapGetters([
             'is_auth',
             'roles'
-        ])
+        ]),
+        CreateRole() {
+            return CreateRole;
+        }
     },
     components: {
         Popup,

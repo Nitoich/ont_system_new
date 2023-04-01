@@ -15,40 +15,34 @@
             <span class="font-medium">Успешно!</span> {{ success.message }}
         </div>
 
-        <div class="fields" v-if="user">
-            <div class="field grid grid-cols-2 items-center">
+        <div class="fields items-center flex flex-col gap-2 py-2 " v-if="user">
+            <div class="field grid grid-cols-2 items-center justify-center">
                 <span class="text-right">ID:</span>
                 <span>{{ user.id }}</span>
             </div>
 
-            <div class="field grid grid-cols-2 items-center">
-                <span class="text-right">EMAIL:</span>
-                <text-input v-model="user.email"></text-input>
+            <div class="w-[369px]">
+                <text-input placeholder="EMAIL" v-model="user.email"></text-input>
             </div>
 
-            <div class="field grid grid-cols-2 items-center">
-                <span class="text-right">Фамилия:</span>
-                <text-input v-model="user.last_name"></text-input>
+            <div class="w-[369px]">
+                <text-input placeholder="Фамилия" v-model="user.last_name"></text-input>
             </div>
 
-            <div class="field grid grid-cols-2 items-center">
-                <span class="text-right">Имя:</span>
-                <text-input v-model="user.first_name"></text-input>
+            <div class="w-[369px]">
+                <text-input placeholder="Имя" v-model="user.first_name"></text-input>
             </div>
 
-            <div class="field grid grid-cols-2 items-center">
-                <span class="text-right">Отчество:</span>
-                <text-input v-model="user.surname"></text-input>
+            <div class="w-[369px]">
+                <text-input placeholder="Отчество" v-model="user.surname"></text-input>
             </div>
 
-            <div class="field grid grid-cols-2 items-center">
-                <span class="text-right">Дата рождения:</span>
-                <text-input v-model="user.birth_day"></text-input>
+            <div class="w-[369px]">
+                <text-input placeholder="Дата рождения" v-model="user.birth_day"></text-input>
             </div>
-        </div>
-        <div class="text-center">
-            <button-group
-                :buttons="{
+
+            <button-group ref="btns"
+                          :buttons="{
                 save: {
                     name: 'Сохранить',
                     cb: save
@@ -67,6 +61,9 @@
                 }
             }"
             ></button-group>
+        </div>
+        <div class="text-center">
+
         </div>
     </div>
 </template>
@@ -143,7 +140,7 @@ export default {
     computed: {
         ...mapGetters([
             'is_auth'
-        ])
+        ]),
     }
 }
 </script>

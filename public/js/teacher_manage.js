@@ -2446,6 +2446,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "TextInput",
@@ -21686,43 +21713,37 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "input w-[200px] min-h-[40px] position-relative p-2" },
+    "label",
+    {
+      staticClass:
+        "relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600",
+      attrs: { for: "UserEmail" },
+    },
     [
-      _c("div", { staticClass: "absolute-block relative min-h-[30px]" }, [
-        _c(
-          "span",
-          {
-            ref: "placeholder",
-            staticClass:
-              "absolute top-[5%] transition-all duration-500 px-2 user-select-none",
+      _c("input", {
+        staticClass:
+          "peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm",
+        attrs: {
+          disabled: this.disabled,
+          type: this.isPassword ? "password" : "text",
+          placeholder: this.placeholder,
+        },
+        domProps: { value: this.value },
+        on: {
+          input: function ($event) {
+            return _vm.$emit("input", $event.target.value)
           },
-          [_vm._v(_vm._s(this.placeholder))]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "px-2 outline-0 bg-transparent border-b-2 absolute",
-          class: this.error !== "" ? "border-red-500" : "",
-          attrs: {
-            disabled: this.disabled,
-            type: this.isPassword ? "password" : "text",
-          },
-          domProps: { value: this.value },
-          on: {
-            blur: this.blur,
-            focus: this.focus,
-            input: function ($event) {
-              return _vm.$emit("input", $event.target.value)
-            },
-          },
-        }),
-      ]),
+        },
+      }),
       _vm._v(" "),
-      this.error !== ""
-        ? _c("span", { staticClass: "text-danger block" }, [
-            _vm._v(_vm._s(this.error)),
-          ])
-        : _vm._e(),
+      _c(
+        "span",
+        {
+          staticClass:
+            "absolute left-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs",
+        },
+        [_vm._v("\n    " + _vm._s(this.placeholder) + "\n  ")]
+      ),
     ]
   )
 }

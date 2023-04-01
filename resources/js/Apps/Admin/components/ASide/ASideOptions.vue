@@ -18,6 +18,10 @@
         <div class="py-1.5 flex justify-end">
             <ButtonGroup :buttons="[
                 {
+                    name: 'Отменить',
+                    cb: () => { this.$emit('close-popup'); }
+                },
+                {
                     name: 'Сохранить',
                     cb: save
                 }
@@ -62,6 +66,7 @@ export default {
             this.$store.dispatch('setMenuItemAccess', this.options)
                 .then(response => {
                     console.log(response);
+                    this.$emit('close-popup');
                 })
                 .catch(error => {
                     console.log(error.response)

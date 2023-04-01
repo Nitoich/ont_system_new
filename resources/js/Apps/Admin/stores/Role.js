@@ -33,6 +33,9 @@ export default {
         getRole(context, id) {
             console.log(id)
             return http.get(`/api/v1/role/${id}`);
+        },
+        createRole(context, fields) {
+            return http.post(`/api/v1/role`, fields);
         }
     }
 

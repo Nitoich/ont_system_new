@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Roles\CreateRoleRequest;
 use App\Http\Resources\User\UserRoleResource;
 use App\Models\Role;
 use App\Services\RoleService;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -21,5 +23,14 @@ class RoleController extends Controller
         return response()->json([
             'data' => $roleService->getById($id)
         ])->setStatusCode(200);
+    }
+
+    public function store(
+        RoleService $roleService,
+        CreateRoleRequest $request
+    ) {
+        return response()->json([
+            'data' => $roleService->create($request->all())
+        ])->setStatusCode(201);
     }
 }
