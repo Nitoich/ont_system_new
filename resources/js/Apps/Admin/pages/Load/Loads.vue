@@ -1,9 +1,13 @@
 <template>
     <div>
-        <v-filter
-           :fields="filter"
-           v-model="filterValues"
-        ></v-filter>
+        <div class="flex">
+            <v-filter class="flex-1"
+                :fields="filter"
+                v-model="filterValues"
+            ></v-filter>
+            <standard-button label="Новая запись" @click="show_popup = true"></standard-button>
+        </div>
+
         <smart-table
             v-if="loads"
             :headers="{
@@ -26,6 +30,7 @@
             :pagination-meta="this.loads.meta"
             @click="paginationClick"
         ></default-pagination>
+        <Popup v-model="show_popup" :component="popupComponent"></Popup>
     </div>
 </template>
 
@@ -35,10 +40,14 @@ import DefaultPagination from "../../../../Components/Pagination/DefaultPaginati
 import Filter from "../../../../Components/Filter";
 import http from "../../http";
 import {mapGetters} from "vuex";
+import Popup from "../../components/Popup.vue";
+import NewLoad from "./NewLoad.vue";
 
 export default {
     name: "Loads",
     data: () => ({
+        popupComponent: NewLoad,
+        show_popup: false,
         filterValues: undefined,
         filter: {
             id: {
@@ -92,7 +101,8 @@ export default {
     components: {
         SmartTable,
         DefaultPagination,
-        'v-filter': Filter
+        'v-filter': Filter,
+        Popup
     }
 }
 </script>
