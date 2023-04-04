@@ -24,6 +24,11 @@ export default {
         if(this.is_auth == true) {
             this.$store.dispatch('getMenuItemAccess');
         }
+        console.log('emit')
+        window.notify({
+            type: 'success',
+            content: 'App started!'
+        });
     },
     data: () => ({
         // menu_items: {

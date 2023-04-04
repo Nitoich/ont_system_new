@@ -5,6 +5,7 @@ import User from "./stores/User";
 import Role from "./stores/Role";
 import Load from './stores/Load'
 import ASide_menu from "./stores/ASide_menu";
+import Permission from "./stores/Permission";
 
 Vue.use(Vuex);
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
         User,
         Role,
         Load,
-        ASide_menu
+        ASide_menu,
+        Permission
     }
 });

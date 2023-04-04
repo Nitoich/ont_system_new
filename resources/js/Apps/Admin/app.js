@@ -28,6 +28,7 @@ window.Vue = require('vue').default;
  */
 
 Vue.component('standard-button', require('../../Components/Buttons/StandardButton').default);
+Vue.component('SuccessAlert', require('./components/Alerts/SuccessAlert.vue').default);
 // Vue.component('danger-button', require('./components/Buttons/DangerButton.vue').default);
 
 import router from "./router/router";

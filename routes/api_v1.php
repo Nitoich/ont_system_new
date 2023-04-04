@@ -28,6 +28,8 @@ Route::middleware('jwt_auth')->group(function () {
         Route::get('/', [\App\Http\Controllers\api\RoleController::class, 'index']);
         Route::post('/', [\App\Http\Controllers\api\RoleController::class, 'store']);
         Route::get('/{id}', [\App\Http\Controllers\api\RoleController::class, 'show']);
+        Route::get('/{id}/permission', [\App\Http\Controllers\api\RoleController::class, 'getRolePermissions']);
+        Route::patch('/{id}', [\App\Http\Controllers\api\RoleController::class, 'update']);
     });
 
     Route::prefix('/group')->group(function() {
@@ -88,5 +90,10 @@ Route::middleware('jwt_auth')->group(function () {
     Route::prefix('/data-storage')->group(function () {
         Route::get('/{key}', [\App\Http\Controllers\api\DataStorageController::class, 'show']);
         Route::put('/{key}', [\App\Http\Controllers\api\DataStorageController::class, 'put']);
+    });
+
+    Route::prefix('/permission')->group(function () {
+        Route::get('/', [\App\Http\Controllers\api\PermissionController::class, 'index']);
+        Route::get('/{id}', [\App\Http\Controllers\api\PermissionController::class, 'show']);
     });
 });

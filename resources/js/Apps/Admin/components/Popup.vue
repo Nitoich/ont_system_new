@@ -1,5 +1,5 @@
 <template>
-    <div @mousedown.self.passive="closePopup" v-if="this.value" class="overview h-screen w-screen bg-[#000000aa] fixed left-0 top-0 flex justify-center items-center">
+    <div @mousedown.self.passive="closePopup" v-if="this.value" class="z-10 overview h-screen w-screen bg-[#000000aa] fixed left-0 top-0 flex justify-center items-center">
         <div class="content min-h-[200px] min-w-[400px] bg-white p-3 rounded-lg">
             <component @close-popup="closePopup" :is="this.component"></component>
         </div>

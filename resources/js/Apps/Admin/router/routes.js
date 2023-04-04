@@ -9,6 +9,7 @@ import Loads from "../pages/Load/Loads";
 import AllRoles from "../pages/Roles/Roles.vue"
 import Role from "../pages/Roles/Role.vue";
 import RoleEdit from "../pages/Roles/RoleEdit.vue";
+import RolePermissions from "../pages/Roles/RolePermissions.vue";
 
 export default [
     { path: '/admin/home', component: Home, name: 'home', meta: { page_group: 'home' } },
@@ -40,7 +41,7 @@ export default [
         },
         children: [
             { path: '', component: Role, name: 'role-general', meta: { page_group: 'roles' } },
-            { path: '/permissions', component: {}, name: 'role-permissions', meta: { page_group: 'roles' } }
+            { path: 'permissions', component: RolePermissions, name: 'role-permissions', meta: { page_group: 'roles' } }
         ]
     }
 ];

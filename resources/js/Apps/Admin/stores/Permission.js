@@ -1,4 +1,5 @@
 import http from "../http";
+import permissions from "../pages/Users/UserEdit/Permissions.vue";
 
 export default {
     state: {
@@ -7,7 +8,14 @@ export default {
     getters: {
         permissions: (state) => {
             return state.permissions;
-        }
+        },
+        permissions_selector: (state) => {
+            const result = {};
+            state.permissions.forEach(permission => {
+                result[permission.id] = permission.name;
+            });
+            return result;
+        },
     },
     mutations: {
         permissions: (state, value) => {
@@ -16,8 +24,10 @@ export default {
     },
     actions: {
         getPermissions: async (context, payload) => {
-            return await http.get()
-                .then(response => response.data);
+            return await http.get('/api/v1/permission')
+                .then(response => {
+                    context.commit('permissions', response.data.data);
+                });
         },
     }
 };
