@@ -40,7 +40,6 @@ export default {
                         type: 'entity:speciality'
                     }
                 },
-                pages: ['all', 'solo']
             }
         }
     },
@@ -50,12 +49,17 @@ export default {
     actions: {
         getEntityItems(context, payload) {
             let requestLink = '';
+
             if(!payload.link) {
                 requestLink = `/api/v1/${payload.entity}`;
-            } else { requestLink = payload.link }
+            } else { requestLink = payload.link; }
+
             return http.get(requestLink, {
                 params: payload.filter
             });
+        },
+        createEntityItem(context, payload) {
+            return http.post(`/api/v1/${payload.entity}`, payload.data);
         }
     }
 };
