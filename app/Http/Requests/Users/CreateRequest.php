@@ -33,7 +33,7 @@ class CreateRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'surname' => 'required',
-            'birth_day' => 'required|date',
+            'birth_day' => 'required',
             'avatar_id' => 'integer',
         ];
     }

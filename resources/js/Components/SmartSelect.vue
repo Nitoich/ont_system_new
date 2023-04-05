@@ -53,8 +53,6 @@ export default {
         filteredItems: {
             get() {
                 const items = {};
-                console.log(this.search);
-                console.log(this.items)
                 if(this.search == '') { return this.items; }
                 for(const [key, name] of Object.entries(this.items)) {
                     if(name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1) {
