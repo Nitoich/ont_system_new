@@ -9,6 +9,7 @@ export default {
             loads: { name: 'Нагрузка', url: '/admin/loads' },
             groups: { name: 'Группы', url: '/admin/groups' },
             discipline: { name: 'Дисциплины', url: '/admin/disciplines' },
+            speciality: { name: 'Специальности', url: '/admin/speciality' },
             roles: { name: 'Роли', url: '/admin/roles' },
         },
         menu_items_access: {},

@@ -45,5 +45,5 @@ export default [
             { path: 'permissions', component: RolePermissions, name: 'role-permissions', meta: { page_group: 'roles' } }
         ]
     },
-    { path: '/admin/speciality', component: AllItemsEntity, props: { entity: 'speciality' } }
+    { path: '/admin/speciality', component: AllItemsEntity, props: { entity: 'speciality' }, meta: { page_group: 'speciality' }}
 ];
