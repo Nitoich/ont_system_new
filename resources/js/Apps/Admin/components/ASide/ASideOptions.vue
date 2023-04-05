@@ -66,6 +66,7 @@ export default {
             this.$store.dispatch('setMenuItemAccess', this.options)
                 .then(response => {
                     console.log(response);
+                    this.$store.dispatch('getMenuItemAccess');
                     this.$emit('close-popup');
                 })
                 .catch(error => {
