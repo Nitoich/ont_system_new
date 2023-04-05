@@ -1,7 +1,8 @@
 <template>
     <div class="bg-white p-2">
-        <div v-if="entity_config">
+        <div v-if="entity_config" class="flex justify-between">
             <h1 class="text-xl">Раздел с сущностью {{ entity_config.name }}</h1>
+            <StandardButton @click="state_show_popup_fast_create = true" label="Создать"></StandardButton>
         </div>
         <div class="sticky top-0 bg-white py-2 border-b-2">
             <v-filter
@@ -26,12 +27,16 @@
             </div>
         </div>
         <div class="space-y-1.5">
-
             <SmartTable
                 :headers="getHeaders()"
                 :items="entity_items"
             ></SmartTable>
         </div>
+        <Popup
+            v-model="state_show_popup_fast_create"
+            :props="{ entity }"
+            :component="fast_create_component"
+        ></Popup>
     </div>
 </template>
 
@@ -39,6 +44,9 @@
 import Filter from "../../../../Components/Filter.vue";
 import SmartTable from "../../../../Components/SmartTable.vue";
 import DefaultPagination from "../../../../Components/Pagination/DefaultPagination.vue";
+import StandardButton from "../../../../Components/Buttons/StandardButton.vue";
+import Popup from "../../components/Popup.vue";
+import FastCreateEntity from "./FastCreateEntity.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -48,8 +56,13 @@ export default {
         entity_items: [],
         entity_pagination: {},
         filter_values: {},
-        items_per_page: 10
+        items_per_page: 10,
+        fast_create_component: FastCreateEntity,
+        state_show_popup_fast_create: false
     }),
+    created() {
+
+    },
     mounted() {
         this.entity_config = this.entities[this.entity];
         let options = localStorage.getItem('per_page_options');
@@ -61,6 +74,11 @@ export default {
         }
         if(this.is_auth) {
             this.getItems();
+        }
+
+
+        if(this.newFastCreateComponent) {
+            this.fast_create_component = this.newFastCreateComponent;
         }
     },
     methods: {
@@ -113,6 +131,10 @@ export default {
     props: {
         entity: {
             type: String,
+        },
+        newFastCreateComponent: {
+            type: [Object],
+            default: null
         }
     },
     computed: {
@@ -124,7 +146,9 @@ export default {
     components: {
         SmartTable,
         'v-filter': Filter,
-        DefaultPagination
+        DefaultPagination,
+        StandardButton,
+        Popup
     }
 }
 </script>

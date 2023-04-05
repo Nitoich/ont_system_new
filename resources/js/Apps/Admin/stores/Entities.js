@@ -8,7 +8,8 @@ export default {
                 fields: {
                     id: {
                         name: 'ID',
-                        type: 'string'
+                        type: 'string',
+                        writable: false
                     },
                     name: {
                         name: 'Название',

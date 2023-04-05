@@ -1,7 +1,7 @@
 <template>
     <div @mousedown.self.passive="closePopup" v-if="this.value" class="z-10 overview h-screen w-screen bg-[#000000aa] fixed left-0 top-0 flex justify-center items-center">
         <div class="content min-h-[200px] min-w-[400px] bg-white p-3 rounded-lg">
-            <component @close-popup="closePopup" :is="this.component"></component>
+            <component v-bind="this.props" @close-popup="closePopup" :is="this.component"></component>
         </div>
         <div @click="closePopup" class="group cross absolute top-[2%] right-[2%] w-[50px] h-[50px] flex justify-center items-center cursor-pointer">
             <div class="relative w-[50px] h-[50px]">
@@ -21,6 +21,10 @@ export default {
             default: () => ({
                 template: "<div><h1>Popup</h1></div>"
             })
+        },
+        props: {
+            type: Object,
+            default: () => ({})
         },
         value: {
             type: Boolean,
