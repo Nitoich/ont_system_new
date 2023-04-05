@@ -15,7 +15,7 @@ import SingleEntity from "../pages/EntitiesTemplate/SingleEntity.vue";
 
 export default [
     { path: '/admin/home', component: Home, name: 'home', meta: { page_group: 'home' } },
-    { path: '/admin/users', component: Users, name: 'users', meta: { page_group: 'users' } },
+    { path: '/admin/users', component: AllItemsEntity, props: { entity: 'user' }, name: 'users', meta: { page_group: 'users' } },
     { path: '/admin/user/new', component: AddUser, name: 'user-create', meta: { page_group: 'users' } },
     {
         path: '/admin/user/:id',
@@ -33,7 +33,7 @@ export default [
     { path: '/admin/loads', component: Loads, name: 'loads', meta: { page_group: 'loads' } },
     { path: '/admin/groups', component: {}, name: 'groups', meta: { page_group: 'groups' } },
     { path: '/admin/disciplines', component: {}, name: 'disciplines', meta: { page_group: 'disciplines' } },
-    { path: '/admin/roles', component: AllRoles, name: 'roles', meta: { page_group: 'roles' } },
+    { path: '/admin/roles', component: AllItemsEntity, props: { entity: 'role' }, name: 'roles', meta: { page_group: 'roles' } },
     {
         path: '/admin/role/:id',
         component: RoleEdit,

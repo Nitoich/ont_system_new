@@ -56,11 +56,12 @@ export default {
                 data: this.entity_fields_values
             })
                 .then((response) => {
+                    console.log(response)
                     window.notify({
                         type: 'success',
                         content: `
                             <p>Сущность "${this.entity_config.name}" успешно создана!</p>
-                            <a style="text-decoration: underline" href="/admin/home">Перейти к сущности...</a>
+                            <a style="text-decoration: underline" href="/admin/${this.entity}/${response.data.data[this.entity_config.primary_field]}">Перейти к сущности...</a>
                         `
                     });
                     this.cancel();

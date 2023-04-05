@@ -35,7 +35,7 @@ class UserController extends Controller
         Request $request,
         UsersFilter $filter
     ) {
-        $users = User::query()->filter($filter)->paginate(20);
+        $users = User::query()->filter($filter)->paginate($_GET['per_page'] ?? 10);
 //        dd(json_decode($users->toJson(), TRUE));
         return response()->json(UserResource::collection($users)->response()->getData(true))->setStatusCode(200);
     }

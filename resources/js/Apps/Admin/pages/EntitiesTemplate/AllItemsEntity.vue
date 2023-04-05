@@ -11,10 +11,11 @@
             ></v-filter>
             <div class="flex justify-between items-center bg-white">
                 <DefaultPagination
+                    v-if="entity_pagination"
                     :pagination-meta="entity_pagination"
                     @click="paginationClick"
                 ></DefaultPagination>
-                <div class="options">
+                <div v-if="entity_pagination" class="options">
                     <label for="records_per_page">Кол-во записей на странице:</label>
                     <select @click="savePerPageOption" v-model="items_per_page" id="records_per_page">
                         <option value="10">10</option>
@@ -81,27 +82,32 @@ export default {
         fast_create_component: FastCreateEntity,
         state_show_popup_fast_create: false
     }),
-    async created() {
-        await this.$store.dispatch('validateEntity', this.entity);
-    },
     mounted() {
-        this.entity_config = this.entities[this.entity];
-        let options = localStorage.getItem('per_page_options');
-        if(!options) { this.items_per_page = 10; }
-        else {
-            options = JSON.parse(options);
-            if(!options[this.entity]) { this.items_per_page = 10; }
-            else { this.items_per_page = options[this.entity]; }
-        }
-        if(this.is_auth) {
-            this.getItems();
-        }
-
-        if(this.newFastCreateComponent) {
-            this.fast_create_component = this.newFastCreateComponent;
-        }
+        new Promise(async (resolve, reject) => {
+            await this.$store.dispatch('validateEntity', this.entity);
+            resolve();
+        }).then(() => { this.init(); });
     },
     methods: {
+        init() {
+            this.entity_config = this.entities[this.entity];
+            let options = localStorage.getItem('per_page_options');
+            if(!options) { this.items_per_page = 10; }
+            else {
+                options = JSON.parse(options);
+                if(!options[this.entity]) { this.items_per_page = 10; }
+                else { this.items_per_page = options[this.entity]; }
+            }
+            if(this.is_auth) {
+                this.getItems();
+            }
+
+            this.fast_create_component = FastCreateEntity;
+
+            if(this.entity_config.newFastCreateComponent) {
+                this.fast_create_component = this.entity_config.newFastCreateComponent;
+            }
+        },
         linkColumns() {
             const result = {};
             result[this.entity_config.primary_field] = (item) => `/admin/${this.entity}/${item[this.entity_config.primary_field]}`;
@@ -130,7 +136,14 @@ export default {
             return result;
         },
         getHeaders() {
-            return this.mapEntityFields((field) => field.name);
+            const headers = this.mapEntityFields((field) => field.name);
+            const result = {};
+            for(const [key, value] of Object.entries(headers)) {
+                if(this.entity_config.fields[key].hidden != true) {
+                    result[key] = value;
+                }
+            }
+            return result;
         },
         prepareFilterFields() {
             return this.mapEntityFields((field) => ({
@@ -151,6 +164,9 @@ export default {
         },
         items_per_page() {
             this.getItems(this.filter_values);
+        },
+        entity() {
+            this.init();
         }
     },
     props: {
