@@ -1,13 +1,13 @@
 <template>
-    <div class="filter relative py-1">
+    <div class="filter relative py-1 z-[999]">
         <div @click="focus" class="accepted-filters flex gap-2 p-2 min-h-[40px] max-w-full border-2 border-slate-600 overflow-auto">
             <div v-for="(field, key) in this.acceptedFields" class="accepted-field p-1.5 bg-main-blue rounded-lg">
                 <span class="whitespace-nowrap">{{ field.name }}: {{ field.value }}</span>
             </div>
         </div>
-        <div style="display: none" ref="fieldsContainer" class="fields absolute top-100 w-full h-max py-1 px-2 bg-white border-2">
+        <div style="display: none" ref="fieldsContainer" class="fields absolute top-100 w-full h-max py-1 px-2 bg-white border-2 z-[]">
             <div class="fields overflow-y-auto max-h-[300px]">
-                <div v-for="(field, key) in this.fields" class="field flex items-center">
+                <div v-for="(field, key) in this.fields" class="field flex items-center gap-2">
                     <span>{{ field.name }}:</span>
                     <text-input v-model="fieldsValues[key]" v-if="typeof field.type == 'undefined' || field.type.toLowerCase() === 'text'"></text-input>
                     <smart-select v-model="fieldsValues[key]" v-if="typeof field.type !== 'undefined' && field.type.toLowerCase() == 'select'" :items="field.items"></smart-select>

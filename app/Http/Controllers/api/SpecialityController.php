@@ -15,7 +15,7 @@ class SpecialityController extends Controller
     public function index(
         SlugAndNameFilter $filter
     ) {
-        $specialities = Speciality::query()->filter($filter)->paginate(10);
+        $specialities = Speciality::query()->filter($filter)->paginate($_GET['per_page'] ?? 10);
         return response()->json(SpecialityResource::collection($specialities)->response()->getData(true));
     }
 
