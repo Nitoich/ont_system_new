@@ -34,6 +34,7 @@ export default [
     { path: '/admin/groups', component: AllItemsEntity, props: { entity: 'group' }, name: 'groups', meta: { page_group: 'groups' } },
     { path: '/admin/group/:id', component: SingleEntity, props: { entity: 'group' }, name: 'groups', meta: { page_group: 'groups' } },
     { path: '/admin/disciplines', component: AllItemsEntity, props: { entity: 'discipline' }, name: 'disciplines', meta: { page_group: 'disciplines' } },
+    { path: '/admin/discipline/:id', component: SingleEntity, props: { entity: 'discipline' }, name: 'disciplines', meta: { page_group: 'disciplines' } },
     { path: '/admin/roles', component: AllItemsEntity, props: { entity: 'role' }, name: 'roles', meta: { page_group: 'roles' } },
     {
         path: '/admin/role/:id',

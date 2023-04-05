@@ -8,7 +8,7 @@ export default {
             users: { name: 'Пользователи', url: '/admin/users' },
             loads: { name: 'Нагрузка', url: '/admin/loads' },
             groups: { name: 'Группы', url: '/admin/groups' },
-            discipline: { name: 'Дисциплины', url: '/admin/disciplines' },
+            disciplines: { name: 'Дисциплины', url: '/admin/disciplines' },
             speciality: { name: 'Специальности', url: '/admin/speciality' },
             roles: { name: 'Роли', url: '/admin/roles' },
         },
