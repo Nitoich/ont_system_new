@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white p-2">
+    <div v-if="entity_config" class="bg-white p-2">
         <div v-if="entity_config" class="flex justify-between">
             <h1 class="text-xl">Раздел с сущностью {{ entity_config.name }}</h1>
             <StandardButton @click="state_show_popup_fast_create = true" label="Создать"></StandardButton>
@@ -26,11 +26,31 @@
                 </div>
             </div>
         </div>
-        <div class="space-y-1.5">
+        <div class="space-y-1.5 border-l-2 border-r-2">
             <SmartTable
+                :link-columns="linkColumns()"
                 :headers="getHeaders()"
                 :items="entity_items"
             ></SmartTable>
+        </div>
+        <div class="group-actions sticky bottom-0 py-2 border-t-2 bg-white">
+            <div class="flex justify-between">
+                <select class="flex-1" id="group-action">
+                    <option value="delete">Удалить</option>
+                </select>
+                <ButtonGroup
+                    :buttons="[
+                        {
+                            name: 'Выполнить для выбранных',
+                            cb: () => {}
+                        },
+                        {
+                            name: 'Выполнить для всех',
+                            cb: () => {}
+                        }
+                    ]"
+                ></ButtonGroup>
+            </div>
         </div>
         <Popup
             v-model="state_show_popup_fast_create"
@@ -48,6 +68,7 @@ import StandardButton from "../../../../Components/Buttons/StandardButton.vue";
 import Popup from "../../components/Popup.vue";
 import FastCreateEntity from "./FastCreateEntity.vue";
 import { mapGetters } from "vuex";
+import ButtonGroup from "../../../../Components/Buttons/ButtonGroup.vue";
 
 export default {
     name: "AllItemsEntity",
@@ -60,8 +81,8 @@ export default {
         fast_create_component: FastCreateEntity,
         state_show_popup_fast_create: false
     }),
-    created() {
-
+    async created() {
+        await this.$store.dispatch('validateEntity', this.entity);
     },
     mounted() {
         this.entity_config = this.entities[this.entity];
@@ -76,12 +97,16 @@ export default {
             this.getItems();
         }
 
-
         if(this.newFastCreateComponent) {
             this.fast_create_component = this.newFastCreateComponent;
         }
     },
     methods: {
+        linkColumns() {
+            const result = {};
+            result[this.entity_config.primary_field] = (item) => `/admin/${this.entity}/${item[this.entity_config.primary_field]}`;
+            return result;
+        },
         savePerPageOption() {
             let options = localStorage.getItem('per_page_options');
             if(!options) {
@@ -144,6 +169,7 @@ export default {
         ])
     },
     components: {
+        ButtonGroup,
         SmartTable,
         'v-filter': Filter,
         DefaultPagination,

@@ -56,7 +56,14 @@ export default {
                 data: this.entity_fields_values
             })
                 .then((response) => {
-                    console.log(response)
+                    window.notify({
+                        type: 'success',
+                        content: `
+                            <p>Сущность "${this.entity_config.name}" успешно создана!</p>
+                            <a style="text-decoration: underline" href="/admin/home">Перейти к сущности...</a>
+                        `
+                    });
+                    this.cancel();
                 })
                 .catch(({ response }) => {
                     if(response.status >= 400 && response.status < 500) {

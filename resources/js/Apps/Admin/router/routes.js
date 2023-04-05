@@ -11,6 +11,7 @@ import Role from "../pages/Roles/Role.vue";
 import RoleEdit from "../pages/Roles/RoleEdit.vue";
 import RolePermissions from "../pages/Roles/RolePermissions.vue";
 import AllItemsEntity from "../pages/EntitiesTemplate/AllItemsEntity.vue";
+import SingleEntity from "../pages/EntitiesTemplate/SingleEntity.vue";
 
 export default [
     { path: '/admin/home', component: Home, name: 'home', meta: { page_group: 'home' } },
@@ -19,7 +20,7 @@ export default [
     {
         path: '/admin/user/:id',
         component: UserEdit,
-        name: 'user-edit',
+        // name: 'user-edit',
         meta: {
             page_group: 'users'
         },
@@ -36,7 +37,7 @@ export default [
     {
         path: '/admin/role/:id',
         component: RoleEdit,
-        name: 'role',
+        // name: 'role',
         meta: {
             page_group: 'roles'
         },
@@ -45,5 +46,6 @@ export default [
             { path: 'permissions', component: RolePermissions, name: 'role-permissions', meta: { page_group: 'roles' } }
         ]
     },
-    { path: '/admin/speciality', component: AllItemsEntity, props: { entity: 'speciality' }, meta: { page_group: 'speciality' }}
+    { path: '/admin/speciality', component: AllItemsEntity, props: { entity: 'speciality' }, meta: { page_group: 'speciality' }},
+    { path: '/admin/speciality/:id', component: SingleEntity, props: { entity: 'speciality' }, meta: { page_group: 'speciality' }}
 ];

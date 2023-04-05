@@ -5,6 +5,7 @@ export default {
         entities: {
             speciality: {
                 name: 'Специальность',
+                primary_field: 'id',
                 fields: {
                     id: {
                         name: 'ID',
@@ -47,6 +48,16 @@ export default {
         entities: (state) => { return state.entities; }
     },
     actions: {
+        validateEntity(context, entity_name) {
+            const entity = context.getters.entities[entity_name];
+            const validateProperty = (name, ctx = entity) => {
+                if(typeof ctx.name === 'undefined') { throw `Not found property "${name}" in ${entity_name} entity!`}
+            };
+
+            validateProperty('name');
+            validateProperty('primary_field');
+            validateProperty('fields');
+        },
         getEntityItems(context, payload) {
             let requestLink = '';
 
@@ -60,6 +71,9 @@ export default {
         },
         createEntityItem(context, payload) {
             return http.post(`/api/v1/${payload.entity}`, payload.data);
+        },
+        getEntityItem(context, payload) {
+            return http.get(`/api/v1/${payload.entity}/${payload.id}`);
         }
     }
 };
