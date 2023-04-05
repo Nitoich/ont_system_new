@@ -172,10 +172,6 @@ export default {
     props: {
         entity: {
             type: String,
-        },
-        newFastCreateComponent: {
-            type: [Object],
-            default: null
         }
     },
     computed: {
