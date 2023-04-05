@@ -77,25 +77,22 @@ export default {
         paginationClick(event, link) {
             this.getItems(this.filter_values, link.url);
         },
-        getHeaders() {
+        mapEntityFields(cb) {
             if(!this.entity_config) { return {}; }
             const fields = this.entity_config.fields;
             const result = {};
             for(const [key, value] of Object.entries(fields)) {
-                result[key] = value.name;
+                result[key] = cb(value);
             }
             return result;
         },
+        getHeaders() {
+            return this.mapEntityFields((field) => field.name);
+        },
         prepareFilterFields() {
-            if(!this.entity_config) { return {}; }
-            const fields = this.entity_config.fields;
-            const result = {};
-            for(const [key, value] of Object.entries(fields)) {
-                result[key] = {
-                    name: value.name,
-                };
-            }
-            return result;
+            return this.mapEntityFields((field) => ({
+                name: field.name
+            }))
         },
         getItems(filter = {}, link = null) {
             this.$store.dispatch('getEntityItems', { entity: this.entity, filter: Object.assign(filter, { per_page: this.items_per_page }), link})
