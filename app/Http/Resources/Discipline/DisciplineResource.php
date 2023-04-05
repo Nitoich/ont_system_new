@@ -18,7 +18,8 @@ class DisciplineResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'speciality_id' => $this->speciality_id
+            'speciality_id' => $this->speciality_id,
+            'speciality_name' => $this->speciality->name
         ];
     }
 }

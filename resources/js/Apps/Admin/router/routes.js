@@ -31,8 +31,9 @@ export default [
         ]
     },
     { path: '/admin/loads', component: Loads, name: 'loads', meta: { page_group: 'loads' } },
-    { path: '/admin/groups', component: {}, name: 'groups', meta: { page_group: 'groups' } },
-    { path: '/admin/disciplines', component: {}, name: 'disciplines', meta: { page_group: 'disciplines' } },
+    { path: '/admin/groups', component: AllItemsEntity, props: { entity: 'group' }, name: 'groups', meta: { page_group: 'groups' } },
+    { path: '/admin/group/:id', component: SingleEntity, props: { entity: 'group' }, name: 'groups', meta: { page_group: 'groups' } },
+    { path: '/admin/disciplines', component: AllItemsEntity, props: { entity: 'discipline' }, name: 'disciplines', meta: { page_group: 'disciplines' } },
     { path: '/admin/roles', component: AllItemsEntity, props: { entity: 'role' }, name: 'roles', meta: { page_group: 'roles' } },
     {
         path: '/admin/role/:id',

@@ -64,7 +64,7 @@ export default {
         this.entity_fields = this.entity_config.fields;
         this.$store.dispatch('getEntityItem', {
             entity: this.entity,
-            id: this.$route.params.id
+            primary_field: this.$route.params.id
         })
             .then((response) => {
                 this.entity_fields_values = {};

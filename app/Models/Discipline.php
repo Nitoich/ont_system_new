@@ -17,6 +17,6 @@ class Discipline extends Model
     ];
 
     public function speciality() {
-        return $this->belongsTo(Speciality::class, 'id', 'speciality_id');
+        return $this->belongsTo(Speciality::class, 'speciality_id', 'id');
     }
 }

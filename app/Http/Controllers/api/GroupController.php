@@ -24,7 +24,10 @@ class GroupController extends Controller
         GroupService $groupService,
         int $group_id
     ) {
-        return response()->json(GroupResource::make($groupService->getById($group_id)), 200);
+        return response()->json(
+            [
+                'data' => GroupResource::make($groupService->getById($group_id))
+            ], 200);
     }
 
     public function getAll(
@@ -35,7 +38,7 @@ class GroupController extends Controller
         if(isset($request->pagination) && $request->pagination == 'false') {
             $groups = $groups->get();
         } else {
-            $groups = $groups->paginate(10);
+            $groups = $groups->paginate($_GET['per_page'] ?? 10);
         }
         return response()->json(GroupResource::collection($groups)->response()->getData(true), 200);
     }

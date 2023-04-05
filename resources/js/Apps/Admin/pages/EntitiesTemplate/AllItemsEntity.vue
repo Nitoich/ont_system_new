@@ -109,8 +109,23 @@ export default {
             }
         },
         linkColumns() {
+
+            const getReferencesFields = () => {
+                Object.filter = (obj, predicate) =>
+                    Object.keys(obj)
+                        .filter( key => predicate(obj[key]) )
+                        .reduce( (res, key) => (res[key] = obj[key], res), {} );
+
+                return Object.filter(this.entity_config.fields, (field) => field.type.includes('entity:'))
+            };
+
             const result = {};
             result[this.entity_config.primary_field] = (item) => `/admin/${this.entity}/${item[this.entity_config.primary_field]}`;
+            const referencesFields = getReferencesFields();
+            for(const [key, value] of Object.entries(referencesFields)) {
+                let index = value.type.indexOf(':');
+                result[key] = (item) => `/admin/${value.type.slice(index + 1)}/${item[value.reference_field]}`;
+            }
             return result;
         },
         savePerPageOption() {

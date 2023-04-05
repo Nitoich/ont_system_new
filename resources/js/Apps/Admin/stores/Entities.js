@@ -75,11 +75,33 @@ export default {
                     },
                 },
             },
-            discipline: {
+            group: {
+                name: 'Группа',
+                primary_field: 'id',
                 fields: {
                     id: {
                         name: 'ID',
+                        type: 'string',
+                        writable: false
+                    },
+                    name: {
+                        name: 'Название',
                         type: 'string'
+                    },
+                    slug: {
+                        name: 'Код',
+                        type: 'string'
+                    },
+                }
+            },
+            discipline: {
+                name: 'Дисциплина',
+                primary_field: 'id',
+                fields: {
+                    id: {
+                        name: 'ID',
+                        type: 'string',
+                        writable: false
                     },
                     name: {
                         name: 'Название',
@@ -91,7 +113,13 @@ export default {
                     },
                     speciality_id: {
                         name: 'Специальность',
-                        type: 'entity:speciality'
+                        type: 'string',
+                        hidden: true
+                    },
+                    speciality_name: {
+                        name: 'Специальность',
+                        type: 'entity:speciality',
+                        reference_field: 'id'
                     }
                 },
             }
@@ -104,8 +132,23 @@ export default {
         validateEntity(context, entity_name) {
             const entity = context.getters.entities[entity_name];
             const validateProperty = (name, ctx = entity) => {
-                if(typeof ctx[name] === 'undefined') { throw `Not found property "${name}" in ${entity_name} entity!`; }
-                if(typeof ctx[name] === 'object' && Object.keys(ctx[name]).length === 0) { throw `Property "${name}" must not be empty!"`; }
+                let message = '';
+                if(typeof ctx[name] === 'undefined') {
+                    message = `Not found property "${name}" in ${entity_name} entity!`
+                    window.notify({
+                        type: 'error',
+                        content: message
+                    });
+                    throw message;
+                }
+                if(typeof ctx[name] === 'object' && Object.keys(ctx[name]).length === 0) {
+                    message = `Property "${name}" must not be empty!"`;
+                    window.notify({
+                        type: 'error',
+                        content: message
+                    });
+                    throw message;
+                }
             };
 
             validateProperty('name');
@@ -127,7 +170,7 @@ export default {
             return http.post(`/api/v1/${payload.entity}`, payload.data);
         },
         getEntityItem(context, payload) {
-            return http.get(`/api/v1/${payload.entity}/${payload.id}`);
+            return http.get(`/api/v1/${payload.entity}/${payload.primary_field}`);
         }
     }
 };
