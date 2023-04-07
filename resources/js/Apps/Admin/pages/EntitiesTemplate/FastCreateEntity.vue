@@ -5,7 +5,7 @@
         </div>
 
         <div class="fields space-y-1.5" v-if="entity_config && entity_fields_values">
-            <TextInput v-if="(typeof field.writable === 'undefined') || (field.writable == true)" :key="key" v-for="(field, key) in entity_fields" :placeholder="field.name" v-model="entity_fields_values[key]"></TextInput>
+            <TextInput v-if="conditionsForDrawField(field)" :key="key" v-for="(field, key) in entity_fields" :placeholder="field.name" v-model="entity_fields_values[key]"></TextInput>
         </div>
 
         <div v-if="error" class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
@@ -50,6 +50,21 @@ export default {
         error: null
     }),
     methods: {
+        conditionsForDrawField(field) {
+            console.log(field.writable)
+            if(typeof field.writable !== 'undefined' || field.writable === false) {
+                return false;
+            }
+
+            if(field.type.includes('entity:')) {
+                return false;
+                // TODO: Нужно сделать select в котором будет выбор сущности и возвращать значение для reference_field
+                let index = value.type.indexOf(':');
+                const reference_entity = field.type.slice(index + 1);
+            }
+
+            return true;
+        },
         create() {
             this.$store.dispatch('createEntityItem', {
                 entity: this.entity,
