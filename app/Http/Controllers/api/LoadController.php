@@ -41,10 +41,8 @@ class LoadController extends Controller
                 'data' => LoadResource::collection($loads)
             ]);
         } else {
-            $loads = Load::query()->filter($filter)->paginate(10);
-            return response()->json(
-                LoadResource::collection($loads)->response()->getData(true)
-            );
+            $loads = Load::query()->filter($filter)->paginate($_GET['per_page'] ?? 10);
+            return response()->json(LoadResource::collection($loads)->response()->getData(true));
         }
 
     }

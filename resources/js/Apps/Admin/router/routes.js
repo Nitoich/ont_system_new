@@ -30,7 +30,7 @@ export default [
             { path: 'permission', component: Permissions, name: 'user-permission', meta: { page_group: 'users' } }
         ]
     },
-    { path: '/admin/loads', component: Loads, name: 'loads', meta: { page_group: 'loads' } },
+    { path: '/admin/loads', component: AllItemsEntity, props: { entity: 'load' }, name: 'loads', meta: { page_group: 'loads' } },
     { path: '/admin/groups', component: AllItemsEntity, props: { entity: 'group' }, name: 'groups', meta: { page_group: 'groups' } },
     { path: '/admin/group/:id', component: SingleEntity, props: { entity: 'group' }, name: 'groups', meta: { page_group: 'groups' } },
     { path: '/admin/disciplines', component: AllItemsEntity, props: { entity: 'discipline' }, name: 'disciplines', meta: { page_group: 'disciplines' } },

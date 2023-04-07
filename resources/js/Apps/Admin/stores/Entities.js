@@ -119,9 +119,52 @@ export default {
                     speciality_name: {
                         name: 'Специальность',
                         type: 'entity:speciality',
-                        reference_field: 'id'
+                        reference_field: 'speciality_id'
                     }
                 },
+            },
+            load: {
+                name: 'Нагрузка',
+                primary_field: 'id',
+                fields: {
+                    id: {
+                        name: 'ID',
+                        type: 'string',
+                        writable: false
+                    },
+                    user_id: {
+                        name: 'user_id',
+                        type: 'string',
+                        hidden: true
+                    },
+                    user_full_name: {
+                        name: 'Пользователь',
+                        type: 'entity:user',
+                        reference_field: 'user_id'
+                    },
+                    discipline_id: {
+                        name: 'discipline_id',
+                        type: 'string',
+                        hidden: true
+                    },
+                    discipline_name: {
+                        name: 'Дисциплина',
+                        type: 'entity:discipline',
+                        reference_field: 'discipline_id'
+                    },
+                    characteristic: {
+                        name: 'Хар-ка',
+                        type: 'string'
+                    },
+                    type: {
+                        name: 'Тип',
+                        type: 'string'
+                    },
+                    hours: {
+                        name: 'Кол-во часов',
+                        type: 'string'
+                    }
+                }
             }
         }
     },
@@ -129,6 +172,15 @@ export default {
         entities: (state) => { return state.entities; }
     },
     actions: {
+        getReferencesFields(context, entity_name) {
+            const entity = context.getters.entities[entity_name];
+            const entity_fields = entity.fields;
+            Object.filter = (obj, predicate) =>
+                Object.keys(obj)
+                    .filter( key => predicate(obj[key]) )
+                    .reduce( (res, key) => (res[key] = obj[key], res), {} );
+            return Object.filter(entity_fields, (field) => field.type.includes('entity:'));
+        },
         validateEntity(context, entity_name) {
             const entity = context.getters.entities[entity_name];
             const validateProperty = (name, ctx = entity) => {
