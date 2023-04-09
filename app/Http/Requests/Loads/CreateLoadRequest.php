@@ -26,9 +26,10 @@ class CreateLoadRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'required',
             'group_id' => 'required',
             'discipline_id' => 'required',
-            'semester_id' => 'required',
+            'semester_id' => 'filled',
             'hours' => 'required',
             'type',
             'characteristic' => 'required'

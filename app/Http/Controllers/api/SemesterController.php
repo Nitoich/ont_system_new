@@ -12,8 +12,14 @@ use Illuminate\Http\Request;
 class SemesterController extends Controller
 {
     public function index() {
+        $semesters = Semester::query();
+        if(isset($request->pagination) && $request->pagination == 'false') {
+            $semesters = $semesters->get();
+        } else {
+            $semesters = $semesters->paginate($_GET['per_page'] ?? 10);
+        }
         return response()->json(
-            SemesterResource::collection(Semester::query()->paginate(10))->response()->getData(true)
+            SemesterResource::collection($semesters)->response()->getData(true)
         )->setStatusCode(200);
     }
 

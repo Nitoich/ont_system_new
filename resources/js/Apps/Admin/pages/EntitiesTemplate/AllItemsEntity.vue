@@ -5,10 +5,10 @@
             <StandardButton @click="state_show_popup_fast_create = true" label="Создать"></StandardButton>
         </div>
         <div class="sticky top-0 bg-white py-2 border-b-2 z-10">
-            <v-filter
-                :fields="prepareFilterFields()"
+            <EntityFilter
                 v-model="filter_values"
-            ></v-filter>
+                :entity="entity"
+            ></EntityFilter>
             <div class="flex justify-between items-center bg-white">
                 <DefaultPagination
                     v-if="entity_pagination"
@@ -73,6 +73,7 @@ import Popup from "../../components/Popup.vue";
 import FastCreateEntity from "./FastCreateEntity.vue";
 import { mapGetters } from "vuex";
 import ButtonGroup from "../../../../Components/Buttons/ButtonGroup.vue";
+import EntityFilter from "./EntityFilter.vue";
 
 export default {
     name: "AllItemsEntity",
@@ -179,9 +180,25 @@ export default {
             return result;
         },
         prepareFilterFields() {
-            return this.mapEntityFields((field) => ({
-                name: field.name
-            }))
+            const result = {};
+            for(const [key, field] of Object.entries(this.entity_config.fields)) {
+
+                if(field.hidden == true) {
+                    continue;
+                }
+
+                if(field.type.includes('entity:')) {
+                    result[field.reference_field] = {
+                        name: field.name,
+                    };
+                    continue;
+                }
+
+                result[key] = {
+                    name: field.name
+                };
+            }
+            return result;
         },
         countSelectedItems() {
             let count = 0;
@@ -214,6 +231,11 @@ export default {
             if(this.current_page_link !== '') {
                 this.saveSelectedItemsByPageLink(this.current_page_link);
             }
+        },
+        state_show_popup_fast_create() {
+            if(!this.state_show_popup_fast_create) {
+                this.getItems(this.filter_values)
+            }
         }
     },
     props: {
@@ -228,6 +250,7 @@ export default {
         ])
     },
     components: {
+        EntityFilter,
         ButtonGroup,
         SmartTable,
         'v-filter': Filter,

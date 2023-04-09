@@ -11,6 +11,7 @@ class Load extends Model
     use HasFactory, CanBeFiltered;
 
     protected $fillable = [
+        'user_id',
         'semester_id',
         'group_id',
         'discipline_id',
@@ -29,5 +30,9 @@ class Load extends Model
 
     public function user() {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function semester() {
+        return $this->hasOne(Semester::class, 'id', 'semester_id');
     }
 }

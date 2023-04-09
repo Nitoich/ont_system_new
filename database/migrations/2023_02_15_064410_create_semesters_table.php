@@ -18,6 +18,7 @@ class CreateSemestersTable extends Migration
             $table->text('description')->nullable();
             $table->date('date_start');
             $table->date('date_end');
+            $table->boolean('active')->default(false);
             $table->timestamps();
         });
     }

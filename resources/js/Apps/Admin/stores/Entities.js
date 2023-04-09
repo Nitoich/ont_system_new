@@ -157,6 +157,16 @@ export default {
                         type: 'entity:discipline',
                         reference_field: 'discipline_id'
                     },
+                    semester_id: {
+                        name: 'Семестр',
+                        type: 'string',
+                        hidden: true
+                    },
+                    semester_name: {
+                        name: 'Семестр',
+                        type: 'entity:semester',
+                        reference_field: 'semester_id'
+                    },
                     group_id: {
                         name: 'group_id',
                         type: 'string',
@@ -185,6 +195,31 @@ export default {
                     },
                     hours: {
                         name: 'Кол-во часов',
+                        type: 'string'
+                    }
+                }
+            },
+            semester: {
+                name: 'Семестр',
+                primary_field: 'id',
+                name_field: 'name',
+                fields: {
+                    id: {
+                        type: 'string',
+                        name: 'ID',
+                        writable: false
+                    },
+                    name: {
+                        name: 'Название',
+                        type: 'string',
+                        writable: false
+                    },
+                    date_start: {
+                        name: 'Дата начала',
+                        type: 'string'
+                    },
+                    date_end: {
+                        name: 'Дата окончания',
                         type: 'string'
                     }
                 }

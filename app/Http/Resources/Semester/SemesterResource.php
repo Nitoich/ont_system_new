@@ -14,6 +14,11 @@ class SemesterResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'date_start' => $this->date_start,
+            'date_end' => $this->date_end
+        ];
     }
 }

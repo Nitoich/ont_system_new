@@ -23,6 +23,7 @@ class LoadResource extends JsonResource
             'discipline_id' => $this->discipline_id,
             'discipline_name' => $this->discipline->name,
             'semester_id' => $this->semester_id,
+            'semester_name' => $this->semester->name,
             'type' => $this->type,
             'characteristic' => $this->characteristic,
             'hours' => $this->hours
