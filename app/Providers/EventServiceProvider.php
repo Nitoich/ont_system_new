@@ -2,10 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use App\Events\OnCreateRecord;
+use App\Events\OnDeleteRecord;
+use App\Events\OnUpdateRecord;
+use App\Events\Register;
+use App\Listeners\LogCreateRecordListener;
+use App\Listeners\LogDeleteRecordListener;
+use App\Listeners\LogUpdateRecordListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -15,9 +19,16 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        Register::class => [],
+        OnCreateRecord::class => [
+            LogCreateRecordListener::class
         ],
+        OnUpdateRecord::class => [
+            LogUpdateRecordListener::class
+        ],
+        OnDeleteRecord::class => [
+            LogDeleteRecordListener::class
+        ]
     ];
 
     /**

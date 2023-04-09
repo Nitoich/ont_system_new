@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="z-20">
         <div @notify="notify" :class="this.contentClasses">
             <slot></slot>
         </div>

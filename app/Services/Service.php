@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\OnCreateRecord;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 abstract class Service
@@ -38,6 +39,7 @@ abstract class Service
     public function create(array $fields): \Illuminate\Database\Eloquent\Model {
         $data_unit = new $this->model($fields);
         $data_unit->save();
+        event(new OnCreateRecord($data_unit));
         return $data_unit;
     }
 
