@@ -16,8 +16,18 @@ class DisciplineController extends Controller
         SlugAndNameFilter $filter
     )
     {
-        $disciplines = Discipline::query()->filter($filter)->paginate($_GET['per_page'] ?? 10);
+        $pagination = $_GET['pagination'] ?? true;
+        if(is_string($pagination)) {
+            $pagination = $pagination === 'true';
+        }
+        $disciplines = Discipline::query()->filter($filter);
+        if($pagination) {
+            $disciplines = $disciplines->paginate($_GET['per_page'] ?? 10);
+        } else {
+            $disciplines = $disciplines->get();
+        }
         return response()->json(DisciplineResource::collection($disciplines)->response()->getData(true))->setStatusCode(200);
+
     }
 
     public function store(

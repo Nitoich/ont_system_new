@@ -8,6 +8,7 @@ export default {
                 name: 'Пользователь',
                 primary_field: 'id',
                 newFastCreateComponent: AddUser,
+                name_field: 'email',
                 fields: {
                     id: {
                         name: 'ID',
@@ -40,6 +41,7 @@ export default {
             role: {
                 name: 'Роль',
                 primary_field: 'id',
+                name_field: 'name',
                 fields: {
                     id: {
                         name: 'ID',
@@ -59,6 +61,7 @@ export default {
             speciality: {
                 name: 'Специальность',
                 primary_field: 'id',
+                name_field: 'name',
                 fields: {
                     id: {
                         name: 'ID',
@@ -78,6 +81,7 @@ export default {
             group: {
                 name: 'Группа',
                 primary_field: 'id',
+                name_field: 'name',
                 fields: {
                     id: {
                         name: 'ID',
@@ -97,6 +101,7 @@ export default {
             discipline: {
                 name: 'Дисциплина',
                 primary_field: 'id',
+                name_field: 'name',
                 fields: {
                     id: {
                         name: 'ID',
@@ -152,13 +157,31 @@ export default {
                         type: 'entity:discipline',
                         reference_field: 'discipline_id'
                     },
+                    group_id: {
+                        name: 'group_id',
+                        type: 'string',
+                        hidden: true
+                    },
+                    group_name: {
+                        name: 'Группа',
+                        type: 'entity:group',
+                        reference_field: 'group_id'
+                    },
                     characteristic: {
                         name: 'Хар-ка',
-                        type: 'string'
+                        type: 'select',
+                        items: {
+                            commerce: 'Коммерция',
+                            budget: 'Бюджет'
+                        }
                     },
                     type: {
                         name: 'Тип',
-                        type: 'string'
+                        type: 'select',
+                        items: {
+                            load: 'Нагрузка',
+                            vacancy: 'Вакансия'
+                        }
                     },
                     hours: {
                         name: 'Кол-во часов',
@@ -175,11 +198,9 @@ export default {
         getReferencesFields(context, entity_name) {
             const entity = context.getters.entities[entity_name];
             const entity_fields = entity.fields;
-            Object.filter = (obj, predicate) =>
-                Object.keys(obj)
-                    .filter( key => predicate(obj[key]) )
-                    .reduce( (res, key) => (res[key] = obj[key], res), {} );
-            return Object.filter(entity_fields, (field) => field.type.includes('entity:'));
+            return Object.keys(entity_fields)
+                .filter(key => entity_fields[key].type.includes('entity:'))
+                .reduce((response, key) => (response[key] = entity_fields[key], response), {})
         },
         validateEntity(context, entity_name) {
             const entity = context.getters.entities[entity_name];

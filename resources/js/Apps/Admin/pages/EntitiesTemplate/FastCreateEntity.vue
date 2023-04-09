@@ -5,7 +5,11 @@
         </div>
 
         <div class="fields space-y-1.5" v-if="entity_config && entity_fields_values">
-            <TextInput v-if="conditionsForDrawField(field)" :key="key" v-for="(field, key) in entity_fields" :placeholder="field.name" v-model="entity_fields_values[key]"></TextInput>
+            <template v-for="(field, key) in entity_fields">
+                <TextInput v-if="field.type === 'string' && conditionsForDrawField(field)" :placeholder="field.name" v-model="entity_fields_values[key]"></TextInput>
+                <EntitySelector v-if="field.type.includes('entity:') && conditionsForDrawField(field)" :placeholder="field.name" :entity="field.reference_enitity" v-model="entity_fields_values[field.reference_field]"></EntitySelector>
+                <SmartSelect v-if="field.type === 'select'" :placeholder="field.name" :items="field.items" v-model="entity_fields_values[key]"></SmartSelect>
+            </template>
         </div>
 
         <div v-if="error" class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
@@ -41,6 +45,8 @@ import TextInput from "../../../../Components/Inputs/TextInput.vue";
 import { mapGetters } from "vuex";
 import ButtonGroup from "../../../../Components/Buttons/ButtonGroup.vue";
 import http from "../../http";
+import SmartSelect from "../../components/Inputs/SmartSelect.vue";
+import EntitySelector from "../../components/EntitiesComponents/EntitySelector.vue";
 export default {
     name: "FastCreateEntity",
     data: () => ({
@@ -51,16 +57,19 @@ export default {
     }),
     methods: {
         conditionsForDrawField(field) {
-            console.log(field.writable)
             if(typeof field.writable !== 'undefined' || field.writable === false) {
                 return false;
             }
 
-            if(field.type.includes('entity:')) {
+            if(field.hidden == true) {
                 return false;
-                // TODO: Нужно сделать select в котором будет выбор сущности и возвращать значение для reference_field
-                let index = value.type.indexOf(':');
-                const reference_entity = field.type.slice(index + 1);
+            }
+
+            if(field.type.includes('entity:')) {
+                field.items = {test: 'test'};
+                let index = field.type.indexOf(':');
+                field.reference_enitity = field.type.slice(index + 1);
+                return true;
             }
 
             return true;
@@ -71,7 +80,6 @@ export default {
                 data: this.entity_fields_values
             })
                 .then((response) => {
-                    console.log(response)
                     window.notify({
                         type: 'success',
                         content: `
@@ -113,6 +121,8 @@ export default {
         ])
     },
     components: {
+        EntitySelector,
+        SmartSelect,
         ButtonGroup,
         TextInput
     }
