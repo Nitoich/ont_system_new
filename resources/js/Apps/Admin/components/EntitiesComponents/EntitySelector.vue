@@ -22,6 +22,7 @@ export default {
     }),
     created() {
         this.init();
+        this.getItems()
     },
     methods: {
         init() {

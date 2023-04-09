@@ -11,6 +11,7 @@ class LoadService extends Service
     public function __construct(SemesterService $semesterService)
     {
         $this->semesterService = $semesterService;
+        parent::__construct();
     }
 
     protected $model = Load::class;

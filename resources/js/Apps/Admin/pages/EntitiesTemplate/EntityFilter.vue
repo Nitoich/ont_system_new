@@ -5,16 +5,16 @@
                 <span class="whitespace-nowrap">{{ field.name }}: {{ field.value }}</span>
             </div>
         </div>
-        <div style="display: none" ref="fieldsContainer" class="fields absolute top-100 w-full h-max py-1 px-2 bg-white border-2 z-[]">
-            <div class="fields overflow-y-auto max-h-[300px]">
-                <div v-for="(field, key) in entity_fields" class="field flex items-center gap-2">
-                    <text-input :placeholder="field.name" v-model="fieldsValues[key]" v-if="typeof field.type == 'undefined' || field.type.toLowerCase() === 'string'"></text-input>
-                    <EntitySelector :placeholder="field.name" v-model="fieldsValues[key]" v-if="field.type.includes('entity:')" :entity="field.type.replace('entity:', '')"></EntitySelector>
-<!--                    <input v-model="fieldsValues[key]" v-if="typeof field.type !== 'undefined' && field.type.toLowerCase() == 'date'" type="date">-->
-                </div>
+        <div style="display: none" ref="fieldsContainer" class="fields absolute top-100 w-full h-max py-1 bg-white border-2 z-[]">
+            <div class="fields overflow-y-auto max-h-[300px] space-y-1.5 border-b-2 px-2">
+                <template v-for="(field, key) in entity_fields">
+                    <text-input class="w-full" :placeholder="field.name" v-model="fieldsValues[key]" v-if="typeof field.type == 'undefined' || field.type.toLowerCase() === 'string'"></text-input>
+                    <EntitySelector class="w-full" :placeholder="field.name" v-model="fieldsValues[key]" v-if="field.type.includes('entity:')" :entity="field.type.replace('entity:', '')"></EntitySelector>
+                </template>
             </div>
-            <ButtonGroup
-                :buttons="[
+            <div class="px-2 py-2">
+                <ButtonGroup
+                    :buttons="[
                     {
                         name: 'Применить',
                         cb: accept
@@ -28,7 +28,9 @@
                         cb: cancel
                     }
                 ]"
-            ></ButtonGroup>
+                ></ButtonGroup>
+            </div>
+
         </div>
     </div>
 </template>

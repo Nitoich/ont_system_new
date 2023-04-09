@@ -277,6 +277,12 @@ export default {
         createEntityItem(context, payload) {
             return http.post(`/api/v1/${payload.entity}`, payload.data);
         },
+        updateEntityItem(context, payload) {
+            return http.patch(`/api/v1/${payload.entity}/${payload.data[context.getters.entities[payload.entity].primary_field]}`, payload.data);
+        },
+        deleteEntityItem(context, payload) {
+            return http.delete(`/api/v1/${payload.entity}/${payload.data[context.getters.entities[payload.entity].primary_field]}`);
+        },
         getEntityItem(context, payload) {
             return http.get(`/api/v1/${payload.entity}/${payload.primary_field}`);
         }
