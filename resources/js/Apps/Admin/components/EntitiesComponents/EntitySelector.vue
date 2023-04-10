@@ -22,12 +22,12 @@ export default {
     }),
     created() {
         this.init();
-        this.getItems()
     },
     methods: {
         init() {
             this.entity_config = this.entities[this.entity];
             this.entity_fields = this.entity_config.fields;
+            this.getItems()
         },
         focus() {
             this.getItems();

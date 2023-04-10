@@ -5,7 +5,7 @@
                 <span class="text-sm font-medium"> {{ item.name }} </span>
             </a>
         </nav>
-        <nav>
+        <nav v-if="this.$store.dispatch('hasRole', 'admin')">
             <standard-button @click="show_settings_popup = true" label="Настроить меню"></standard-button>
         </nav>
         <Popup v-model="show_settings_popup" :component="popup_component"></Popup>

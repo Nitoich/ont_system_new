@@ -11,6 +11,7 @@ export default {
             disciplines: { name: 'Дисциплины', url: '/admin/disciplines' },
             speciality: { name: 'Специальности', url: '/admin/speciality' },
             roles: { name: 'Роли', url: '/admin/roles' },
+            proofreading: { name: 'Вычитка', url: '/admin/proofreading' }
         },
         menu_items_access: {},
     },

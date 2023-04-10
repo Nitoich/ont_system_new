@@ -96,4 +96,9 @@ Route::middleware('jwt_auth')->group(function () {
         Route::get('/', [\App\Http\Controllers\api\PermissionController::class, 'index']);
         Route::get('/{id}', [\App\Http\Controllers\api\PermissionController::class, 'show']);
     });
+
+    Route::prefix('/proofreading')->group(function () {
+        Route::get('/', [\App\Http\Controllers\api\ProofreadingController::class, 'index']);
+        Route::post('/', [\App\Http\Controllers\api\ProofreadingController::class, 'store']);
+    });
 });

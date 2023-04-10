@@ -18,7 +18,7 @@ class CreateLoadsTable extends Migration
             $table->unsignedBigInteger('group_id')->nullable();
             $table->unsignedBigInteger('discipline_id')->nullable();
             $table->unsignedBigInteger('semester_id')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
 
             $table->foreign('group_id')
                 ->references('id')

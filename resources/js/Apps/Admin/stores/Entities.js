@@ -223,6 +223,56 @@ export default {
                         type: 'string'
                     }
                 }
+            },
+            proofreading: {
+                name: 'Вычитка',
+                primary_field: 'id',
+                name_field: 'user_id',
+                fields: {
+                    id: {
+                        name: 'ID',
+                        type: 'string',
+                        writable: false
+                    },
+                    user_id: {
+                        name: 'user_id',
+                        type: 'string',
+                        hidden: true
+                    },
+                    user_name: {
+                        name: 'Пользователь',
+                        type: 'entity:user',
+                        reference_field: 'user_id'
+                    },
+                    discipline_id: {
+                        name: 'discipline_id',
+                        type: 'string',
+                        hidden: true
+                    },
+                    discipline_name: {
+                        name: 'Дисциплина',
+                        type: 'entity:discipline',
+                        reference_field: 'discipline_id'
+                    },
+                    group_id: {
+                        name: 'group_id',
+                        type: 'string',
+                        hidden: true
+                    },
+                    group_name: {
+                        name: 'Группа',
+                        type: 'entity:group',
+                        reference_field: 'group_id'
+                    },
+                    date: {
+                        name: 'Дата',
+                        type: 'date'
+                    },
+                    hours: {
+                        name:"Часы",
+                        type: 'string'
+                    }
+                }
             }
         }
     },

@@ -9,6 +9,7 @@
                 <TextInput v-if="field.type === 'string' && conditionsForDrawField(field)" :placeholder="field.name" v-model="entity_fields_values[key]"></TextInput>
                 <EntitySelector v-if="field.type.includes('entity:') && conditionsForDrawField(field)" :placeholder="field.name" :entity="field.reference_enitity" v-model="entity_fields_values[field.reference_field]"></EntitySelector>
                 <SmartSelect v-if="field.type === 'select'" :placeholder="field.name" :items="field.items" v-model="entity_fields_values[key]"></SmartSelect>
+                <DatePicker v-if="field.type === 'date'" :placeholder="field.name" v-model="entity_fields_values[key]"></DatePicker>
             </template>
         </div>
 
@@ -47,6 +48,7 @@ import ButtonGroup from "../../../../Components/Buttons/ButtonGroup.vue";
 import http from "../../http";
 import SmartSelect from "../../components/Inputs/SmartSelect.vue";
 import EntitySelector from "../../components/EntitiesComponents/EntitySelector.vue";
+import DatePicker from "../../components/Inputs/DatePicker.vue";
 export default {
     name: "FastCreateEntity",
     data: () => ({
@@ -121,6 +123,7 @@ export default {
         ])
     },
     components: {
+        DatePicker,
         EntitySelector,
         SmartSelect,
         ButtonGroup,

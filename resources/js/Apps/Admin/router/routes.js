@@ -51,5 +51,6 @@ export default [
     },
     { path: '/admin/speciality', component: AllItemsEntity, props: { entity: 'speciality' }, meta: { page_group: 'speciality' }},
     { path: '/admin/speciality/:id', component: SingleEntity, props: { entity: 'speciality' }, meta: { page_group: 'speciality' }},
-    { path: '/admin/semesters', component: AllItemsEntity, props: { entity: 'semester' }, meta: { page_group: 'semester' } }
+    { path: '/admin/semesters', component: AllItemsEntity, props: { entity: 'semester' }, meta: { page_group: 'semester' } },
+    { path: '/admin/proofreading', component: AllItemsEntity, props: { entity: 'proofreading' }, meta: { page_group: 'proofreading' } }
 ];
